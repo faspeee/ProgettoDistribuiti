@@ -9,7 +9,7 @@ namespace Zyzzyva.src.Main.Akka.Core
     {
         private readonly string _processorId;
 
-        ProcessorFibonacci(string id)
+        public ProcessorFibonacci(string id)
         {
             _processorId = id;
             Receive<ComputeMessage>(msg => msg.Sender.Tell(new ProcessorResponse(fibonacci(msg.Number), _processorId)));

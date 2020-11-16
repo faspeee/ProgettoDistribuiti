@@ -8,7 +8,7 @@ namespace Zyzzyva.src.Main.Akka.Core
     class Processor : ReceiveActor
     {
         private IActorRef fibonacciProcessor;
-        Processor(string id)
+        public Processor(string id)
         {
             fibonacciProcessor = Context.ActorOf(ProcessorFibonacci.MyProps(id), "Fibonacci");
             Receive<ComputeFibonacci>(msg => fibonacciProcessor.

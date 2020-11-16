@@ -13,7 +13,7 @@ namespace Zyzzyva.src.Main.Akka.Core
         private readonly IActorRef _processorRouter;
         private readonly IActorRef _clusterManager;
 
-        Node(string id)
+        public Node(string id)
         {
             _processor = Context.ActorOf(Processor.MyProps(id), "processor");
             _processorRouter = Context.ActorOf(FromConfig.Instance.Props(Props.Empty), "processorRouter");

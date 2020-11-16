@@ -13,7 +13,7 @@ namespace Zyzzyva.src.Main.Akka.Core
         private readonly ILoggingAdapter _log = Logging.GetLogger(Context);
         private readonly Cluster _cluster = Cluster.Get(Context.System);
         private readonly IActorRef _listener;
-        ClusterManager(string id)
+        public ClusterManager(string id)
         {
             _listener = Context.ActorOf(ClusterListener.MyProps(id,_cluster ),"clusterListener");
 

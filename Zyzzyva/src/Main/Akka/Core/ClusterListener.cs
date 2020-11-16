@@ -21,7 +21,7 @@ namespace Zyzzyva.src.Main.Akka.Core
 
         protected override void PostStop() => _cluster.Unsubscribe(Self);
 
-        ClusterListener(string id, Cluster cluster)
+        public ClusterListener(string id, Cluster cluster)
         {
             _cluster = cluster;
             _id = id;
