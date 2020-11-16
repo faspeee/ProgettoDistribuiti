@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30709.132
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zyzzyva", "Zyzzyva\Zyzzyva.csproj", "{47F7C62F-D6B9-401A-A5CA-92BE860909F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMRView", "SMRView\SMRView.csproj", "{3F7A8B82-3429-4955-8E76-B5579C088A21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZyzzyvaTest", "ZyzzyvaTest\ZyzzyvaTest.csproj", "{F34A0969-2D8C-4524-8E3F-D5C05F9C6C04}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{47F7C62F-D6B9-401A-A5CA-92BE860909F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47F7C62F-D6B9-401A-A5CA-92BE860909F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47F7C62F-D6B9-401A-A5CA-92BE860909F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47F7C62F-D6B9-401A-A5CA-92BE860909F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F7A8B82-3429-4955-8E76-B5579C088A21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F7A8B82-3429-4955-8E76-B5579C088A21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F7A8B82-3429-4955-8E76-B5579C088A21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F7A8B82-3429-4955-8E76-B5579C088A21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F34A0969-2D8C-4524-8E3F-D5C05F9C6C04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F34A0969-2D8C-4524-8E3F-D5C05F9C6C04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F34A0969-2D8C-4524-8E3F-D5C05F9C6C04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F34A0969-2D8C-4524-8E3F-D5C05F9C6C04}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A0675736-C12E-4932-9886-0B6CC34368DC}
+	EndGlobalSection
+EndGlobal
