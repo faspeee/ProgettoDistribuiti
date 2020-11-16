@@ -10,8 +10,13 @@ namespace Zyzzyva
     {
         static void Main(string[] args)
         {
+
+            Config config = ConfigurationFactory.Load();
             ActorSystem system = ActorSystem.Create("TEST");
-            system.ActorOf(src.Main.Akka.Core.Node());
+            system.ActorOf(src.Main.Akka.Core.Node.MyProps("localhost"));
+
+            while (true) { };
         }
     }
 }
+
