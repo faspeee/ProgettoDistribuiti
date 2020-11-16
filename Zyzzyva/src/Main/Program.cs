@@ -1,4 +1,8 @@
-﻿using System;
+﻿    
+using Akka.Actor;
+using Akka.Configuration;
+using System;
+using System.IO;
 
 namespace Zyzzyva
 {
@@ -6,7 +10,8 @@ namespace Zyzzyva
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            ActorSystem system = ActorSystem.Create("TEST");
+            system.ActorOf(src.Main.Akka.Core.Node());
         }
     }
 }
