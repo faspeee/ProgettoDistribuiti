@@ -12,7 +12,10 @@ namespace Zyzzyva.src.Main.Akka.Core
         public ProcessorFibonacci(string id)
         {
             _processorId = id;
-            Receive<ComputeMessage>(msg => msg.Sender.Tell(new ProcessorResponse(fibonacci(msg.Number), _processorId)));
+            Receive<ComputeMessage>(msg => {
+                Console.WriteLine("IO SONO+ " + _processorId + " ARRIVATA RICHIESTA DI CALCOLARE +" + msg.Number + " DAL TIZIO CHIAMATO " + msg.Sender.Path);
+                msg.Sender.Tell(new ProcessorResponse(fibonacci(msg.Number), _processorId));
+            });
 
 
         }
@@ -29,7 +32,7 @@ namespace Zyzzyva.src.Main.Akka.Core
         }
 
 
-        public record ComputeMessage
+        public class ComputeMessage
         {
             public int Number { get; }
             public IActorRef Sender { get; }
@@ -38,7 +41,7 @@ namespace Zyzzyva.src.Main.Akka.Core
 
         }
 
-        public record ProcessorResponse
+        public class ProcessorResponse
         {
             public int Result { get; }
             public string ProcessorId { get; }

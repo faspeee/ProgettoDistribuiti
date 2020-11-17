@@ -2,21 +2,19 @@
 using Akka.Cluster;
 using Akka.Event;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using static Akka.Cluster.ClusterEvent;
 
 namespace Zyzzyva.src.Main.Akka.Core
 {
     class ClusterListener : ReceiveActor
     {
-        private readonly ILoggingAdapter _log = Logging.GetLogger(Context);
+        private readonly ILoggingAdapter _log = Context.GetLogger();
         private readonly Cluster _cluster;
         private readonly string _id;
         protected override void PreStart()
         {
-            _cluster.Subscribe(Self, SubscriptionInitialStateMode.InitialStateAsEvents,
-                typeof(IMemberEvent), typeof(UnreachableMember));
+            _cluster.Subscribe(Self, ClusterEvent.InitialStateAsEvents,
+               new[] { typeof(IMemberEvent), typeof(UnreachableMember) });
         }
 
         protected override void PostStop() => _cluster.Unsubscribe(Self);
@@ -26,9 +24,9 @@ namespace Zyzzyva.src.Main.Akka.Core
             _cluster = cluster;
             _id = id;
 
-            Receive<MemberUp>(member => _log.Debug($"Node {_id} - Member is Up: {member.Member.Address}"));
-            Receive<UnreachableMember>(member => _log.Debug($"Node {_id} - Member detected as unreachable: {member.Member.Address}"));
-            Receive<MemberRemoved>(member => _log.Debug($"Node {_id} - Member is Removed: {member.Member.Address} after {member.PreviousStatus }"));
+            Receive<MemberUp>(member => _log.Info($"Node {_id} - Member is Up: {member.Member.Address}"));
+            Receive<UnreachableMember>(member => _log.Info($"Node {_id} - Member detected as unreachable: {member.Member.Address}"));
+            Receive<MemberRemoved>(member => _log.Info($"Node {_id} - Member is Removed: {member.Member.Address} after {member.PreviousStatus }"));
 
         }
 
