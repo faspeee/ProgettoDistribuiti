@@ -12,13 +12,15 @@ namespace Zyzzyva.src.Main.Akka.Core
         {
             fibonacciProcessor = Context.ActorOf(ProcessorFibonacci.MyProps(id), "Fibonacci");
             Receive<ComputeFibonacci>(msg => fibonacciProcessor.
-                                             Tell(new ProcessorFibonacci.ComputeMessage(msg.Number, Sender)));
+                                             Tell(new ProcessorFibonacci.ComputeMessage(msg.Number, msg.ActorRef1)));
         }
 
         public class ComputeFibonacci
         {
             public int Number { get; }
-            public ComputeFibonacci(int n) => Number = n;
+
+            public IActorRef ActorRef1 { get; }
+            public ComputeFibonacci(int n, IActorRef actorRef1) => (Number, ActorRef1) = (n, actorRef1);
         }
 
         public static Props MyProps(string id) => Props.Create(() => new Processor(id));
