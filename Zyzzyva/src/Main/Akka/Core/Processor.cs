@@ -15,7 +15,7 @@ namespace Zyzzyva.src.Main.Akka.Core
                                              Tell(new ProcessorFibonacci.ComputeMessage(msg.Number, Sender)));
         }
 
-        public record ComputeFibonacci
+        public class ComputeFibonacci
         {
             public int Number { get; }
             public ComputeFibonacci(int n) => Number = n;

@@ -10,19 +10,24 @@ namespace Zyzzyva.src.Main.Akka.Core
 {
     class ClusterManager : ReceiveActor
     {
-        private readonly ILoggingAdapter _log = Logging.GetLogger(Context);
         private readonly Cluster _cluster = Cluster.Get(Context.System);
-        private readonly IActorRef _listener;
         public ClusterManager(string id)
         {
-            _listener = Context.ActorOf(ClusterListener.MyProps(id,_cluster ),"clusterListener");
+            Context.ActorOf(ClusterListener.MyProps(id,_cluster ),"clusterListener");
 
-            Receive<GetMembers>(_ => Sender.Tell(_cluster.State.Members.Where(x => x.Status == MemberStatus.Up).Select(xx => xx.Address.ToString()).ToList()));
+            Receive<GetMembers>(_ => Sender.Tell(new ListMembers(_cluster.State.Members.Where(x => x.Status == MemberStatus.Up).Select(xx => xx.Address.ToString()).ToList())));
         }
 
         public static Props MyProps(string id) => Props.Create(() => new ClusterManager(id));
 
-        public record GetMembers;
+        public class GetMembers { };
+
+        public class ListMembers
+        {
+            public List<string> addresses { get; }
+
+            public ListMembers(List<string> members) => addresses = members;
+        }
 
 
     }
