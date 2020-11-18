@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option csharp_namespace = "ZyzzyvagRPC";
+
+package greet;
+ 
+service Greeter { 
+   
+  rpc GetFibonacci (GetFibonacciRequest) returns (GetFibonacciReply);
+  rpc GetClusterMembers (GetMemberRequest) returns (GetMemberReply); 
+
+}
+ 
+message GetFibonacciRequest{
+	int32 number=1;
+}
+ message GetFibonacciReply{
+	int32 number=1;
+}
+message GetMemberRequest{}
+ 
+message GetMemberReply{
+	repeated string members =1;
+}
+
+ 

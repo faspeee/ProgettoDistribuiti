@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SMRView.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,11 @@ namespace SMRView
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            CallgRPC call = new();
+            Task.Run(async () =>
+            {
+                await call.GetFibonacci();
+            });
         }
     }
 }

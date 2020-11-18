@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMRView", "SMRView\SMRView.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZyzzyvaTest", "ZyzzyvaTest\ZyzzyvaTest.csproj", "{F34A0969-2D8C-4524-8E3F-D5C05F9C6C04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZyzzyvaREST", "ZyzzyvaREST\ZyzzyvaREST.csproj", "{C4F4CBCC-C9DC-4404-8143-FC5C90695A3A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZyzzyvagRPC", "ZyzzyvagRPC\ZyzzyvagRPC.csproj", "{56F45514-B0B2-443F-BC63-6997032F6D5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{F34A0969-2D8C-4524-8E3F-D5C05F9C6C04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F34A0969-2D8C-4524-8E3F-D5C05F9C6C04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F34A0969-2D8C-4524-8E3F-D5C05F9C6C04}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C4F4CBCC-C9DC-4404-8143-FC5C90695A3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C4F4CBCC-C9DC-4404-8143-FC5C90695A3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C4F4CBCC-C9DC-4404-8143-FC5C90695A3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C4F4CBCC-C9DC-4404-8143-FC5C90695A3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56F45514-B0B2-443F-BC63-6997032F6D5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56F45514-B0B2-443F-BC63-6997032F6D5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56F45514-B0B2-443F-BC63-6997032F6D5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56F45514-B0B2-443F-BC63-6997032F6D5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
