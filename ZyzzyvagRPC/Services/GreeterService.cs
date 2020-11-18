@@ -13,8 +13,9 @@ namespace ZyzzyvagRPC
         public GreeterService(ILogger<GreeterService> logger)
         {
             _logger = logger;
+            Program.Main(new string[0]);
         }
- 
+
         public override Task<GetFibonacciReply> GetFibonacci(GetFibonacciRequest number, ServerCallContext context)
         {
             return Task.FromResult(new GetFibonacciReply

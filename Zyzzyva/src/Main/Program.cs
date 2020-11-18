@@ -12,26 +12,21 @@ using Zyzzyva.src.Main.Akka.Core;
 using static Zyzzyva.src.Main.Akka.Core.ClusterManager;
 using static Zyzzyva.src.Main.Akka.Core.ProcessorFibonacci;
 using System.Collections.Immutable;
+using System.Threading.Tasks;
+
 namespace Zyzzyva
 {
     class Program
     {
 
-        static void Main(string[] args)
+        IActorRef c, dummy;
+        
+
+        async Task Main()
         {
 
-            StartUp(args.Length == 0 ? new String[] { "2551", "2552", "8080" } : args);
-            /*
-                        Config config = ConfigurationFactory.Load();
-                        ActorSystem system = ActorSystem.Create("cluster-playground");
-                        IActorRef node = system.ActorOf(src.Main.Akka.Core.Node.MyProps("localhost"),"node");
-                        IActorRef dummy = system.ActorOf(Dummy.MyProps());
-            node.Tell(new Node.GetClusterMembers(), dummy);
-                        node.Tell(new Node.GetFibonacci(13), dummy);
-                        node.Tell(new Node.GetFibonacci(16), dummy);
-                        node.Tell(new Node.GetClusterMembers(), dummy);
-
-            */
+            StartUp(new String[] { "2551", "2552", "8080" });
+            
             var section = (AkkaConfigurationSection)ConfigurationManager.GetSection("akka");
 
             var config =
@@ -41,18 +36,16 @@ namespace Zyzzyva
             //create an Akka system
             ActorSystem system = ActorSystem.Create("cluster");
             //ActorSystem system2 = ActorSystem.Create("cluster-playground");
-            IActorRef dummy = system.ActorOf(Dummy.MyProps(),"SONOSCEMO");
-             
-            Console.ReadLine();
+            dummy = system.ActorOf(Dummy.MyProps(),"SONOSCEMO");
+
+            await Task.Delay(4000);
+
             var t = ImmutableHashSet.Create(ActorPath.Parse("akka.tcp://cluster-playground@localhost:2552/system/receptionist"));
-            var c = system.ActorOf(ClusterClient.Props(ClusterClientSettings.Create(system).WithInitialContacts(t)), "client");
+            c = system.ActorOf(ClusterClient.Props(ClusterClientSettings.Create(system).WithInitialContacts(t)), "client");
+            await Task.Delay(4000);
+
             
-            c.Tell(new ClusterClient.Send("/user/node", new Node.GetFibonacci(22,dummy), localAffinity: true));
-            c.Tell(new ClusterClient.Send("/user/node", new Node.GetFibonacci(22, dummy), localAffinity: true));
-            c.Tell(new ClusterClient.Send("/user/node", new Node.GetFibonacci(22, dummy), localAffinity: true));
-            c.Tell(new ClusterClient.Send("/user/node", new Node.GetFibonacci(22, dummy), localAffinity: true));
-            c.Tell(new ClusterClient.Send("/user/node", new Node.GetFibonacci(22, dummy), localAffinity: true));
-           
+
             ////system2.ActorOf(Dummy.MyProps(), "mememe").Tell(new Node.GetFibonacci(22), dummy);
 
             //myRemoteActorSelection1.Tell(new Node.GetFibonacci(22), dummy);
@@ -69,8 +62,17 @@ namespace Zyzzyva
             //myRemoteActorSelection1.Tell(new Node.GetClusterMembers(), dummy);
             //myRemoteActorSelection.Tell(new Node.GetFibonacci(44), dummy);
             //myRemoteActorSelection1.Tell(new Node.GetFibonacci(44), dummy);
-            Console.ReadLine();
+            //Console.ReadLine();
 
+        }
+
+        public async Task<object> sticazzi()
+        {
+            return await c.Ask(new ClusterClient.Send("/user/node", new Node.GetFibonacci(22,dummy), localAffinity: true));
+            //c.Tell(new ClusterClient.Send("/user/node", new Node.GetFibonacci(22, dummy), localAffinity: true));
+            //c.Tell(new ClusterClient.Send("/user/node", new Node.GetFibonacci(22, dummy), localAffinity: true));
+            //c.Tell(new ClusterClient.Send("/user/node", new Node.GetFibonacci(22, dummy), localAffinity: true));
+            //c.Tell(new ClusterClient.Send("/user/node", new Node.GetFibonacci(22, dummy), localAffinity: true));
         }
 
         public static void StartUp(string[] ports)
