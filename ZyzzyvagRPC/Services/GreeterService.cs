@@ -24,7 +24,7 @@ namespace ZyzzyvagRPC
             _factoryMethod = factoryMethod;
         }
 
-        public override async Task Subscribe(IAsyncStreamReader<ServerRequest> request, IServerStreamWriter<ServerResponse> response,ServerCallContext context)
+        public override async Task Subscribe(IAsyncStreamReader<ServerRequest> request, IServerStreamWriter<GetFibonacciReply> response,ServerCallContext context)
         {
             using var subscriber = _factoryMethod.GetSubscriber();
 
@@ -48,19 +48,14 @@ namespace ZyzzyvagRPC
             return completion.Task;
         }
 
-        private async Task WriteUpdateAsync(IServerStreamWriter<ServerResponse> stream, int fibonacci)
+        private async Task WriteUpdateAsync(IServerStreamWriter<GetFibonacciReply> stream, int fibonacci)
         {
             try
             {
-                var reply = new GetMemberReply();
-                reply.Members.Add("BHO");
-                await stream.WriteAsync(new ServerResponse
+                await stream.WriteAsync(new GetFibonacciReply
                 {
-                    Msg = new GetFibonacciReply 
-                    { 
-                        Number = fibonacci 
-                    },
-                    Msg2 = reply
+                    Number = fibonacci 
+                   
                 });
             }
             catch (Exception e)

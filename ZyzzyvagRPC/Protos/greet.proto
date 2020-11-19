@@ -5,7 +5,7 @@ option csharp_namespace = "ZyzzyvagRPC";
 package greet;
  
 service Greeter { 
-  rpc Subscribe(stream ServerRequest) returns (stream ServerResponse);
+  rpc Subscribe(stream ServerRequest) returns (stream GetFibonacciReply);
   rpc GetFibonacci (GetFibonacciRequest) returns (GetFibonacciReply);
   rpc GetClusterMembers (GetMemberRequest) returns (GetMemberReply); 
 

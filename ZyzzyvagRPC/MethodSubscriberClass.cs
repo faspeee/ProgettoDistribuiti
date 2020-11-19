@@ -21,7 +21,6 @@ namespace ZyzzyvagRPC
         public MethodSubscriberClass()
         {
             _cancellationTokenSource = new CancellationTokenSource();
-            actor = ClusterClientAccess.CreateActor(Dummy.MyProps(Update));
         }
         public void Dispose()
         {
@@ -30,6 +29,7 @@ namespace ZyzzyvagRPC
 
         public void GetFibonacci(int number)
         {
+            actor = ClusterClientAccess.CreateActor(Dummy.MyProps(this,Update));
             ClusterClientAccess.Instance.GetFibonacci(number, actor);
         }
 
@@ -43,13 +43,14 @@ namespace ZyzzyvagRPC
     {
 
         private event EventHandler<MethodUpdateEventArgs> Update;
-
+        private MethodSubscriberClass LOL;
         //private Stream stream;
-        public Dummy(EventHandler<MethodUpdateEventArgs> u)
+        public Dummy(MethodSubscriberClass sender, EventHandler<MethodUpdateEventArgs> u)
         {
 
             Update = u;
-            Receive<ProcessorResponse>(x => Update?.Invoke(this, new MethodUpdateEventArgs(x.Result)));
+            LOL = sender;
+            Receive<ProcessorResponse>(x => Update?.Invoke(LOL, new MethodUpdateEventArgs(x.Result)));
             Receive<ListMembers>(x => {
                 Console.WriteLine("ARRIVATA RISPOSTA!");
                 x.addresses.ForEach(xx => Console.WriteLine("Ci SONO + " + xx));
@@ -58,7 +59,7 @@ namespace ZyzzyvagRPC
             });
         }
 
-        public static Props MyProps(EventHandler<MethodUpdateEventArgs> u) => Props.Create(() => new Dummy(u));
+        public static Props MyProps(MethodSubscriberClass sender,EventHandler<MethodUpdateEventArgs> u) => Props.Create(() => new Dummy(sender, u));
     }
 
 
