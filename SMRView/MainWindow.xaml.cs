@@ -1,6 +1,7 @@
 ﻿using SMRView.Controller;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,18 +22,45 @@ namespace SMRView
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        MainWindowViewModel view;
+        private TextBoxTraceListener _textBoxListener { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+            _textBoxListener = new TextBoxTraceListener(ResultB);
+            Trace.Listeners.Add(_textBoxListener);
+            view = new Program().Main();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            CallgRPC call = new();
-            Task.Run(async () =>
+            await view.Add(int.Parse(ReqB.Text.ToString()));
+        }
+
+        public class TextBoxTraceListener : TraceListener
+        {
+            private TextBox _target;
+            private StringSendDelegate _invokeWrite;
+            public TextBoxTraceListener(TextBox target)
             {
-                await call.GetFibonacci();
-            });
+                _target = target;
+                _invokeWrite = new StringSendDelegate(SendString);
+            }
+            public override void Write(string message)
+            { _target.Dispatcher.Invoke(_invokeWrite, new object[] { message }); }
+            public override void WriteLine(string message)
+            { _target.Dispatcher.Invoke(_invokeWrite, new object[] { message + Environment.NewLine }); }
+            private delegate void StringSendDelegate(string message);
+            private void SendString(string message)
+            { _target.AppendText(message); }
+        }
+
+        private async void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            await view.Members();
+
         }
     }
 }
