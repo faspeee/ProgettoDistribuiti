@@ -21,7 +21,7 @@ namespace ZyzzyvagRPC
         public MethodSubscriberClass()
         {
             _cancellationTokenSource = new CancellationTokenSource();
-            actor = ClusterClientAccess.CreateActor(Dummy.MyProps(Update));
+           
         }
         public void Dispose()
         {
@@ -30,6 +30,7 @@ namespace ZyzzyvagRPC
 
         public void GetFibonacci(int number)
         {
+            actor = ClusterClientAccess.CreateActor(Dummy.MyProps(Update));
             ClusterClientAccess.Instance.GetFibonacci(number, actor);
         }
 
@@ -49,7 +50,8 @@ namespace ZyzzyvagRPC
         {
 
             Update = u;
-            Receive<ProcessorResponse>(x => Update?.Invoke(this, new MethodUpdateEventArgs(x.Result)));
+            Receive<ProcessorResponse>(x => 
+            Update?.Invoke(this, new MethodUpdateEventArgs(x.Result)));
             Receive<ListMembers>(x => {
                 Console.WriteLine("ARRIVATA RISPOSTA!");
                 x.addresses.ForEach(xx => Console.WriteLine("Ci SONO + " + xx));
