@@ -24,12 +24,17 @@ namespace ZyzzyvagRPC
             _factoryMethod = factoryMethod;
         }
 
-        public override async Task Subscribe(IAsyncStreamReader<ServerRequest> request, IServerStreamWriter<GetFibonacciReply> response,ServerCallContext context)
+        public override async Task Subscribe(IAsyncStreamReader<ServerRequest> request, IServerStreamWriter<ServerResponse> response,ServerCallContext context)
         {
             using var subscriber = _factoryMethod.GetSubscriber();
 
             subscriber.Update += async (sender, args) =>
                 await WriteUpdateAsync(response, args.Boh);
+
+            subscriber.UpdateMembers += async (sender, args) =>
+                await WriteUpdateAsync(response, args.Boh);
+
+            subscriber.CreateActor();
 
             var actionsTask = HandleActions(request, subscriber, context.CancellationToken);
 
@@ -48,14 +53,38 @@ namespace ZyzzyvagRPC
             return completion.Task;
         }
 
-        private async Task WriteUpdateAsync(IServerStreamWriter<GetFibonacciReply> stream, int fibonacci)
+        private async Task WriteUpdateAsync(IServerStreamWriter<ServerResponse> stream, int fibonacci)
         {
+
+            //var reply = new GetMemberReply();
             try
             {
-                await stream.WriteAsync(new GetFibonacciReply
+                await stream.WriteAsync(new ServerResponse
                 {
-                    Number = fibonacci 
-                   
+                    Msg = new GetFibonacciReply
+                    {
+                        Number = fibonacci
+                    }
+
+                });
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Failed to write message: {e.Message}");
+            }
+        }
+
+        private async Task WriteUpdateAsync(IServerStreamWriter<ServerResponse> stream, List<string> members)
+        {
+
+            var reply = new GetMemberReply();
+            reply.Members.AddRange(members);
+            try
+            {
+                await stream.WriteAsync(new ServerResponse
+                {
+                    Msg2 = reply
+
                 });
             }
             catch (Exception e)

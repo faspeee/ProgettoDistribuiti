@@ -20,7 +20,10 @@ namespace Zyzzyva
     {
         public static void Main(string[] args)
         {
-            Task.Run(() => StartUp(args.Length == 1 ? args[0] : "2551"));
+
+            new src.Main.Database.CRUDdb("").readOrdini().ForEach(x => Console.WriteLine(x.customer+x.quant));
+            Console.ReadLine();
+            //Task.Run(() => StartUp(args.Length == 1 ? args[0] : "2551"));
         }
 
         public static void StartUp(string port)
