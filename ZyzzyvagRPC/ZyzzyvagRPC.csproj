@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>082a12df-ec3d-40c7-a703-a811a1a7d306</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <SignAssembly>false</SignAssembly>
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
@@ -28,6 +29,7 @@
     <PackageReference Include="Hocon.Configuration" Version="2.0.3" />
     <PackageReference Include="Hyperion" Version="0.9.16" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
   </ItemGroup>
 
   <ItemGroup>
