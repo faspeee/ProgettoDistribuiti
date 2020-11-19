@@ -3,15 +3,17 @@ using System.Threading;
 using System.Threading.Tasks; 
 using Microsoft.Extensions.Logging;
 using Grpc.Core;
-using ZyzzyvagRPC.Checazzonesoio; 
+using ZyzzyvagRPC.Checazzonesoio;
+using System.Collections.Generic;
+using ZyzzyvagRPC.Subscriber.SubscriberContract;
 
 namespace ZyzzyvagRPC
 {
     public class GreeterService : Greeter.GreeterBase
     {
-        private readonly IMethodSubscriberFactory _factoryMethod;
+        private readonly ISubscriberFactory _factoryMethod;
         private readonly ILogger<GreeterService> _logger;
-        public GreeterService(IMethodSubscriberFactory factoryMethod,ILogger<GreeterService> logger)
+        public GreeterService(ISubscriberFactory factoryMethod,ILogger<GreeterService> logger)
         {
             _logger = logger;
             _factoryMethod = factoryMethod;
@@ -19,22 +21,24 @@ namespace ZyzzyvagRPC
 
         public override async Task Subscribe(IAsyncStreamReader<ServerRequest> request, IServerStreamWriter<ServerResponse> response,ServerCallContext context)
         {
-            using var subscriber = _factoryMethod.GetSubscriber();
+            using var subscriberF = _factoryMethod.GetFibonacciSubscriber();
+            using var subscriberM = _factoryMethod.GetMemberSubscriber();
 
-            subscriber.Update += async (sender, args) =>
-                await WriteUpdateAsync(response, args.Boh);
+            subscriberF.FibonacciEvent += async (sender, args) =>
+                await WriteUpdateAsync(response, args.FibonacciResult);
 
-            subscriber.UpdateMembers += async (sender, args) =>
-                await WriteUpdateAsync(response, args.Boh);
+            subscriberM.MemberEvent += async (sender, args) =>
+                await WriteUpdateAsync(response, args.MembersResult);
 
-            subscriber.CreateActor();
-
-            var actionsTask = HandleActions(request, subscriber, context.CancellationToken);
+            subscriberF.CreateActor();
+            subscriberM.CreateActor();
+            var actionsTask = HandleActions(request, subscriberF, context.CancellationToken);
+            var actionsTask2 = HandleActions(request, subscriberM, context.CancellationToken);
 
             _logger.LogInformation("Subscription started.");
             await AwaitCancellation(context.CancellationToken);
 
-            try { await actionsTask; } catch { /* Ignored */ }
+            try { await Task.WhenAll(new Task[] { actionsTask, actionsTask2 }); } catch { /* Ignored */ }
 
             _logger.LogInformation("Subscription finished.");
         }
@@ -86,7 +90,7 @@ namespace ZyzzyvagRPC
             }
         }
 
-        private async Task HandleActions(IAsyncStreamReader<ServerRequest> requestStream, IMethodSubscriber subscriber, CancellationToken token)
+        private async Task HandleActions(IAsyncStreamReader<ServerRequest> requestStream, IFibonacciSubscriber subscriber, CancellationToken token)
         {
             await foreach (var action in requestStream.ReadAllAsync(token))
             {
@@ -97,7 +101,22 @@ namespace ZyzzyvagRPC
                         break;
                     case ServerRequest.ACasoOneofCase.Msg:
                         subscriber.GetFibonacci(action.Msg.Number);
+                        break; 
+                    default:
+                        _logger.LogWarning($"Unknown Action '{action.ACasoCase}'.");
                         break;
+                }
+            }
+        }
+        private async Task HandleActions(IAsyncStreamReader<ServerRequest> requestStream, IMemberSubscriber subscriber, CancellationToken token)
+        {
+            await foreach (var action in requestStream.ReadAllAsync(token))
+            {
+                switch (action.ACasoCase)
+                {
+                    case ServerRequest.ACasoOneofCase.None:
+                        _logger.LogWarning("No Action specified.");
+                        break; 
                     case ServerRequest.ACasoOneofCase.Msg2:
                         subscriber.GetMembers();
                         break;
