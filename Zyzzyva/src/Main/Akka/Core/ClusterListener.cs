@@ -6,7 +6,7 @@ using static Akka.Cluster.ClusterEvent;
 
 namespace Zyzzyva.src.Main.Akka.Core
 {
-    class ClusterListener : ReceiveActor
+    public class ClusterListener : ReceiveActor
     {
         private readonly ILoggingAdapter _log = Context.GetLogger();
         private readonly Cluster _cluster;

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Zyzzyva.src.Main;
+using ZyzzyvagRPC.Checazzonesoio;
 
 namespace ZyzzyvagRPC
 {
@@ -18,6 +19,7 @@ namespace ZyzzyvagRPC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
+            services.AddSingleton<IMethodSubscriberFactory,MethodSubscriberFactory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
