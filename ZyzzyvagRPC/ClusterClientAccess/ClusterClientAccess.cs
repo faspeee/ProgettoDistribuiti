@@ -45,5 +45,10 @@ namespace ZyzzyvaRPC.ClusterClientAccess
             return system.ActorOf(props);
         }
 
+        public static void KillActor(IActorRef actor)
+        {
+            system.Stop(actor);
+        }
+        
     }
 }

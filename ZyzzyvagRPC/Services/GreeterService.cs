@@ -24,6 +24,11 @@ namespace ZyzzyvagRPC
             subscriber.Update += async (sender, args) =>
                 await WriteUpdateAsync(response, args.Boh);
 
+            subscriber.UpdateMembers += async (sender, args) =>
+                await WriteUpdateAsync(response, args.Boh);
+
+            subscriber.CreateActor();
+
             var actionsTask = HandleActions(request, subscriber, context.CancellationToken);
 
             _logger.LogInformation("Subscription started.");
@@ -43,17 +48,36 @@ namespace ZyzzyvagRPC
 
         private async Task WriteUpdateAsync(IServerStreamWriter<ServerResponse> stream, int fibonacci)
         {
+
+            //var reply = new GetMemberReply();
             try
             {
-                var reply = new GetMemberReply();
-                reply.Members.Add("BHO");
                 await stream.WriteAsync(new ServerResponse
                 {
-                    Msg = new GetFibonacciReply 
-                    { 
-                        Number = fibonacci 
-                    },
+                    Msg = new GetFibonacciReply
+                    {
+                        Number = fibonacci
+                    }
+
+                });
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Failed to write message: {e.Message}");
+            }
+        }
+
+        private async Task WriteUpdateAsync(IServerStreamWriter<ServerResponse> stream, List<string> members)
+        {
+
+            var reply = new GetMemberReply();
+            reply.Members.AddRange(members);
+            try
+            {
+                await stream.WriteAsync(new ServerResponse
+                {
                     Msg2 = reply
+
                 });
             }
             catch (Exception e)

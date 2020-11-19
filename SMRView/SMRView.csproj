@@ -17,13 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Zyzzyva\Zyzzyva.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>  
-	  <Protobuf Include="..\ZyzzyvagRPC\Protos\greet.proto" GrpcServices="Client">
-      <Link>Protos\greet.proto</Link>
-    </Protobuf>
+    <ProjectReference Include="..\Progetto\Progetto.csproj" />
   </ItemGroup>
 
 </Project>

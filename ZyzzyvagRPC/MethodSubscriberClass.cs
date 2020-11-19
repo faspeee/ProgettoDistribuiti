@@ -16,16 +16,18 @@ namespace ZyzzyvagRPC
         private readonly CancellationTokenSource _cancellationTokenSource;
         private readonly Task _task;
         public event EventHandler<MethodUpdateEventArgs> Update;
+        public event EventHandler<MethodUpdateEventArgs2> UpdateMembers;
         private IActorRef actor;
 
         public MethodSubscriberClass()
         {
             _cancellationTokenSource = new CancellationTokenSource();
-           
         }
         public void Dispose()
         {
             _cancellationTokenSource.Cancel();
+            Console.WriteLine("CHIYSO");
+            ClusterClientAccess.KillActor(actor);
         }
 
         public void GetFibonacci(int number)
@@ -38,29 +40,29 @@ namespace ZyzzyvagRPC
         {
             ClusterClientAccess.Instance.GetMembers(actor);
         }
+
+        public void CreateActor() => actor = ClusterClientAccess.CreateActor(Dummy.MyProps(this, Update, UpdateMembers));
+
     }
 
     class Dummy : ReceiveActor
     {
 
         private event EventHandler<MethodUpdateEventArgs> Update;
-
+        private event EventHandler<MethodUpdateEventArgs2> UpdateM;
+        private MethodSubscriberClass LOL;
         //private Stream stream;
-        public Dummy(EventHandler<MethodUpdateEventArgs> u)
+        public Dummy(MethodSubscriberClass sender, EventHandler<MethodUpdateEventArgs> u, EventHandler<MethodUpdateEventArgs2> u2)
         {
 
             Update = u;
-            Receive<ProcessorResponse>(x => 
-            Update?.Invoke(this, new MethodUpdateEventArgs(x.Result)));
-            Receive<ListMembers>(x => {
-                Console.WriteLine("ARRIVATA RISPOSTA!");
-                x.addresses.ForEach(xx => Console.WriteLine("Ci SONO + " + xx));
-                //stream.Streamma(xx);
-
-            });
+            UpdateM = u2;
+            LOL = sender;
+            Receive<ProcessorResponse>(x => Update?.Invoke(LOL, new MethodUpdateEventArgs(x.Result)));
+            Receive<ListMembers>(x => UpdateM?.Invoke(LOL, new MethodUpdateEventArgs2(x.addresses)));
         }
 
-        public static Props MyProps(EventHandler<MethodUpdateEventArgs> u) => Props.Create(() => new Dummy(u));
+        public static Props MyProps(MethodSubscriberClass sender,EventHandler<MethodUpdateEventArgs> u, EventHandler<MethodUpdateEventArgs2> u2) => Props.Create(() => new Dummy(sender, u,u2));
     }
 
 
