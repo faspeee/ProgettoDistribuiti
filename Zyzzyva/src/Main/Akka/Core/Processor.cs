@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Zyzzyva.src.Main.Akka.Core
 {
-    class Processor : ReceiveActor
+    public class Processor : ReceiveActor
     {
         private IActorRef fibonacciProcessor;
         public Processor(string id)

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Zyzzyva.src.Main.Akka.Core
 {
-    class Node : ReceiveActor
+    public class Node : ReceiveActor
     {
 
         private readonly IActorRef _processor;
@@ -19,13 +19,18 @@ namespace Zyzzyva.src.Main.Akka.Core
             _processorRouter = Context.ActorOf(Props.Empty.WithRouter(FromConfig.Instance), "processorRouter");
             _clusterManager = Context.ActorOf(ClusterManager.MyProps(id), "clusterManager");
 
-            Receive<GetClusterMembers>(_ => _clusterManager.Forward(new ClusterManager.GetMembers()));
+            Receive<GetClusterMembers>(msg => _clusterManager.Forward(new ClusterManager.GetMembers(msg.ActorRef1)));
             Receive<GetFibonacci>(value => _processorRouter.Forward(new Processor.ComputeFibonacci(value.number,value.ActorRef1)));
         }
 
         public static Props MyProps(string id) => Props.Create(() => new Node(id));
 
-        public class GetClusterMembers { }
+        public class GetClusterMembers 
+        {
+            public IActorRef ActorRef1 { get; }
+
+            public GetClusterMembers(IActorRef actorRef) => ActorRef1 =  actorRef;
+        }
 
         public class GetFibonacci
         {

@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Zyzzyva.src.Main;
+using ZyzzyvagRPC.Checazzonesoio;
 
 namespace ZyzzyvagRPC
 {
@@ -17,6 +19,7 @@ namespace ZyzzyvagRPC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
+            services.AddSingleton<IMethodSubscriberFactory,MethodSubscriberFactory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,8 +40,6 @@ namespace ZyzzyvagRPC
                 {
                     await context.Response.WriteAsync("Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
                 });
-                endpoints.MapGet("/generateJwtToken", context =>
-                  context.Response.WriteAsync(JwtHelper.GenerateJwtToken(context.Request.Query["name"])));
             });
         }
     }

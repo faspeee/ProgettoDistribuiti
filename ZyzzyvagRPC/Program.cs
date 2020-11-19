@@ -12,6 +12,11 @@ namespace ZyzzyvagRPC
     {
         public static void Main(string[] args)
         {
+
+            for(var i = 3; i > 0; i--)
+            {
+                Zyzzyva.Program.Main(new string[] { "255" + i });
+            }
             CreateHostBuilder(args).Build().Run();
         }
 
