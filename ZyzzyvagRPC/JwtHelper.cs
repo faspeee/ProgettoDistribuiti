@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace ZyzzyvagRPC
@@ -12,13 +14,13 @@ namespace ZyzzyvagRPC
                 throw new InvalidOperationException("Name is not specified.");
             }
 
-            //  var claims = new[] { new Claim(ClaimTypes.Name, name) };
-            //   var credentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256);
-            //  var token = new JwtSecurityToken("ExampleServer", "ExampleClients", claims, expires: DateTime.Now.AddSeconds(60), signingCredentials: credentials);
-            return "s";//JwtTokenHandler.WriteToken(token);
+            var claims = new[] { new Claim(ClaimTypes.Name, name) };
+            var credentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256);
+            var token = new JwtSecurityToken("ExampleServer", "ExampleClients", claims, expires: DateTime.Now.AddSeconds(60), signingCredentials: credentials);
+            return JwtTokenHandler.WriteToken(token);
         }
 
-        // public static readonly JwtSecurityTokenHandler JwtTokenHandler = new JwtSecurityTokenHandler();
-        // public static readonly SymmetricSecurityKey SecurityKey = new SymmetricSecurityKey(Guid.NewGuid().ToByteArray());
+        public static readonly JwtSecurityTokenHandler JwtTokenHandler = new JwtSecurityTokenHandler();
+        public static readonly SymmetricSecurityKey SecurityKey = new SymmetricSecurityKey(Guid.NewGuid().ToByteArray());
     }
 }
