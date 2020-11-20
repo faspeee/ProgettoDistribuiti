@@ -1,0 +1,57 @@
+﻿akka { 
+   actor {
+      provider = cluster
+      serializers {
+	      wire = " Akka.Serialization.HyperionSerializer, Akka.Serialization.Hyperion"
+         akka-cluster-client = "Akka.Cluster.Tools.Client.Serialization.ClusterClientMessageSerializer, Akka.Cluster.Tools"
+      }
+      serialization-bindings {
+		   "System.Object" = wire
+         "Akka.Cluster.Tools.Client.IClusterClientMessage, Akka.Cluster.Tools" = akka-cluster-client
+      }
+      serialization-identifiers {
+         "Akka.Cluster.Tools.Client.Serialization.ClusterClientMessageSerializer, Akka.Cluster.Tools" = 15
+      }
+      deployment {
+         /matematica_manager/matematicaRouter {
+            router = round-robin-group
+            routees.paths = ["/user/matematica_manager/matematica"]
+            cluster {
+               enabled = on
+               allow-local-routees = on
+            }
+         }
+         /member_manager/memberRouter {
+            router = round-robin-group
+            routees.paths = ["/user/member_manager/members"]
+            cluster {
+               enabled = on
+               allow-local-routees = on
+            }
+         }
+         /database_manager/databaseRouter {
+            router = round-robin-group
+            routees.paths = ["/user/database_manager/database"]
+            cluster {
+               enabled = on
+               allow-local-routees = on
+            }
+         }
+      }
+   }
+   remote {
+      log-remote-lifecycle-events = DEBUG
+      dot-netty.tcp {
+         hostname = "localhost"
+         port = 0
+      }
+   }
+   cluster { 
+      seed-nodes = [
+         "akka.tcp://cluster-playground@localhost:2551",
+         "akka.tcp://cluster-playground@localhost:2552",
+         "akka.tcp://cluster-playground@localhost:8080"
+         ]
+      auto-down-unreachable-after = 10s
+   }
+}

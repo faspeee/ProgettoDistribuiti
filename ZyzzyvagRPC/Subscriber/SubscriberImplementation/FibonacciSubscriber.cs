@@ -1,10 +1,10 @@
 ﻿using Akka.Actor;
 using System;
+using Zyzzyva.Akka.Matematica.Messages;
 using ZyzzyvagRPC.Subscriber.EventArgument;
 using ZyzzyvagRPC.Subscriber.SubscriberContract;
 using ZyzzyvagRPC.ZyzzyvaImplementation.EventArgument;
 using ZyzzyvaRPC.ClusterClientAccess;
-using static Zyzzyva.src.Main.Akka.Core.ProcessorFibonacci;
 
 namespace ZyzzyvagRPC.Subscriber.SubscriberImplementation
 {
@@ -31,7 +31,7 @@ namespace ZyzzyvagRPC.Subscriber.SubscriberImplementation
                 FibonaciEvent = fibonacciEvent; 
                 FibonacciSubscriber = fibonacci;
                 FactorialEvent = factorialEvent;
-                Receive<ProcessorResponse>(x => FibonaciEvent?.Invoke(FibonacciSubscriber, new FibonacciEventArgs(x.Result)));
+                Receive<ProcessorResponseFibonacci>(x => FibonaciEvent?.Invoke(FibonacciSubscriber, new FibonacciEventArgs(x.Result)));
                 Receive<ProcessorResponseFactorial>(x => FactorialEvent?.Invoke(FibonacciSubscriber, new FactorialEventArgs(x.Result)));
             }
 

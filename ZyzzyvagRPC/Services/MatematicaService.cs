@@ -26,8 +26,8 @@ namespace ZyzzyvagRPC.Services
             subscriberF.FibonacciEvent += async (sender, args) =>
                 await WriteUpdateAsyncFib(response, args.FibonacciResult);
 
-            subscriberF.FibonacciEvent += async (sender, args) =>
-            await WriteUpdateAsyncFac(response, args.FibonacciResult);
+            subscriberF.FactorialEvent += async (sender, args) =>
+            await WriteUpdateAsyncFac(response, args.FactorialResult);
 
             subscriberF.CreateActor(); 
             var actionsTask = HandleActions(request, subscriberF, context.CancellationToken); 

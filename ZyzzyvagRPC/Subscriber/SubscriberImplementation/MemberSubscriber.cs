@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ZyzzyvagRPC.Subscriber.SubscriberContract;
 using ZyzzyvagRPC.ZyzzyvaImplementation.EventArgument;
 using ZyzzyvaRPC.ClusterClientAccess;
 using Akka.Actor;
-using static Zyzzyva.src.Main.Akka.Core.ClusterManager;
+using Zyzzyva.Akka.Membri.Messages;
 
 namespace ZyzzyvagRPC.Subscriber.SubscriberImplementation
 {
