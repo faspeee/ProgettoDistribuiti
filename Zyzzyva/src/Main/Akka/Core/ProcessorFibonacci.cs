@@ -16,7 +16,10 @@ namespace Zyzzyva.src.Main.Akka.Core
                 Console.WriteLine("IO SONO+ " + _processorId + " ARRIVATA RICHIESTA DI CALCOLARE +" + msg.Number + " DAL TIZIO CHIAMATO " + msg.Sender.Path);
                 msg.Sender.Tell(new ProcessorResponse(fibonacci(msg.Number), _processorId));
             });
-
+            Receive<ComputeFactorial>(msg => {
+                Console.WriteLine("IO SONO+ " + _processorId + " ARRIVATA RICHIESTA DI CALCOLARE FACTORIAL+" + msg.Number + " DAL TIZIO CHIAMATO " + msg.Sender.Path);
+                msg.Sender.Tell(new ProcessorResponseFactorial(factorial(msg.Number), _processorId));
+            });
 
         }
         private int fibonacci(int x)
@@ -31,6 +34,16 @@ namespace Zyzzyva.src.Main.Akka.Core
             return fibHelper(x);
         }
 
+        private int factorial(int x)
+        {
+            static int factHelper(int xx, int acc = 1) => xx switch
+            {
+                <= 1 => acc, 
+                _ => factHelper(xx - 1, xx * acc)
+            };
+
+            return factHelper(x);
+        }
 
         public class ComputeMessage
         {
@@ -40,7 +53,14 @@ namespace Zyzzyva.src.Main.Akka.Core
             public ComputeMessage(int n, IActorRef sender) => (Number,Sender) = (n, sender);
 
         }
+        public class ComputeFactorial
+        {
+            public int Number { get; }
+            public IActorRef Sender { get; }
 
+            public ComputeFactorial(int n, IActorRef sender) => (Number, Sender) = (n, sender);
+
+        }
         public class ProcessorResponse
         {
             public int Result { get; }
@@ -49,7 +69,14 @@ namespace Zyzzyva.src.Main.Akka.Core
             public ProcessorResponse(int n, string sender) => (Result, ProcessorId) = (n, sender);
 
         }
+        public class ProcessorResponseFactorial
+        {
+            public int Result { get; }
+            public string ProcessorId { get; }
 
+            public ProcessorResponseFactorial(int n, string sender) => (Result, ProcessorId) = (n, sender);
+
+        }
         public static Props MyProps(string processorId)
         {
             return Props.Create(() => new ProcessorFibonacci(processorId));

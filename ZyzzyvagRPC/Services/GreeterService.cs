@@ -24,12 +24,12 @@ namespace ZyzzyvagRPC
             using var subscriberF = _factoryMethod.GetFibonacciSubscriber();
             using var subscriberM = _factoryMethod.GetMemberSubscriber();
 
-            subscriberF.FibonacciEvent += async (sender, args) =>
+        /*    subscriberF.FibonacciEvent += async (sender, args) =>
                 await WriteUpdateAsync(response, args.FibonacciResult);
 
             subscriberM.MemberEvent += async (sender, args) =>
                 await WriteUpdateAsync(response, args.MembersResult);
-
+        */
             subscriberF.CreateActor();
             subscriberM.CreateActor();
             var actionsTask = HandleActions(request, subscriberF, context.CancellationToken);
@@ -38,7 +38,12 @@ namespace ZyzzyvagRPC
             _logger.LogInformation("Subscription started.");
             await AwaitCancellation(context.CancellationToken);
 
-            try { await Task.WhenAll(new Task[] { actionsTask, actionsTask2 }); } catch { /* Ignored */ }
+            try { 
+                await Task.WhenAll(new Task[] { actionsTask, actionsTask2 }); 
+            } catch 
+            { 
+                /* Ignored */
+            }
 
             _logger.LogInformation("Subscription finished.");
         }

@@ -37,8 +37,17 @@ namespace SMRView
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             await view.Add(int.Parse(ReqB.Text.ToString()));
+        } 
+        private async void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            await view.Members();
+
         }
 
+        private async void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            await view.Factorial(int.Parse(ReqB.Text.ToString()));
+        }
         public class TextBoxTraceListener : TraceListener
         {
             private TextBox _target;
@@ -55,12 +64,6 @@ namespace SMRView
             private delegate void StringSendDelegate(string message);
             private void SendString(string message)
             { _target.AppendText(message); }
-        }
-
-        private async void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            await view.Members();
-
         }
     }
 }

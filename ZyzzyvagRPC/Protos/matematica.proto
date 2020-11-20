@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option csharp_namespace = "ZyzzyvagRPC.Services";
+
+package matematica;
+
+service Matematica { 
+  rpc Subscribe(stream MatematicaRequest) returns (stream MatematicaResponse); 
+
+}
+
+
+message MatematicaRequest{
+	oneof Action{
+		FibonacciRequest msg = 1;
+		FactorialRequest msg2 = 2;
+	}
+}
+
+message MatematicaResponse{
+	oneof Response{
+		FibonacciReply msg = 1;
+		FactorialReply msg2 = 2;
+	}
+}
+
+
+message FibonacciRequest{
+	int32 number=1;
+}
+ message FibonacciReply{
+	int32 number=1;
+}
+
+message FactorialRequest{
+	int32 number=1;
+}
+ message FactorialReply{
+	int32 number=1;
+}

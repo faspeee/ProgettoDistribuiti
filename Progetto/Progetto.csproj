@@ -18,6 +18,12 @@
     <Protobuf Include="..\ZyzzyvagRPC\Protos\greet.proto" GrpcServices="Client">
       <Link>Protos\greet.proto</Link>
     </Protobuf>
+    <Protobuf Include="..\ZyzzyvagRPC\Protos\matematica.proto" GrpcServices="Client">
+      <Link>Protos\matematica.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\ZyzzyvagRPC\Protos\member.proto" GrpcServices="Client">
+      <Link>Protos\member.proto</Link>
+    </Protobuf>
   </ItemGroup>
 
 </Project>

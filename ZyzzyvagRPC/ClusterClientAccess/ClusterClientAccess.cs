@@ -34,7 +34,10 @@ namespace ZyzzyvaRPC.ClusterClientAccess
         {
             clusterClient.Tell(new ClusterClient.Send("/user/node", new Node.GetFibonacci(number, sender), localAffinity: true));
         }
-
+        public void GetFactorial(int number, IActorRef sender)
+        {
+            clusterClient.Tell(new ClusterClient.Send("/user/node", new Node.GetFactorial(number, sender), localAffinity: true));
+        }
         public void GetMembers(IActorRef sender)
         {
             clusterClient.Tell(new ClusterClient.Send("/user/node", new Node.GetClusterMembers(sender), localAffinity: true));

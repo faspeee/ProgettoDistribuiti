@@ -28,7 +28,9 @@ namespace ZyzzyvagRPC.Subscriber.SubscriberImplementation
 
                 MemberEvent = memberEvent;
                 MemberSubscriber = member; 
-                Receive<ListMembers>(x => MemberEvent?.Invoke(MemberSubscriber, new MemberEventArgs(x.addresses)));
+                Receive<ListMembers>(x => 
+                MemberEvent?.Invoke(MemberSubscriber, new MemberEventArgs(x.addresses))
+                );
             }
 
             public static Props MyProps(MemberSubscriber member, EventHandler<MemberEventArgs> memberEvent) => Props.Create(() => new MemberActor(member, memberEvent));

@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option csharp_namespace = "ZyzzyvagRPC.Services";
+
+package member;
+
+service Member { 
+  rpc Subscribe(stream GetMemberRequest) returns (stream GetMemberReply); 
+
+}
+ 
+message GetMemberRequest{}
+ 
+message GetMemberReply{
+	repeated string members =1;
+}

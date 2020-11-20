@@ -1,17 +1,10 @@
-﻿
+﻿using System;
 using Akka.Actor;
 using Akka.Cluster.Tools.Client;
 using Akka.Configuration;
 using Akka.Configuration.Hocon;
-using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
-using System.Threading;
 using Zyzzyva.src.Main.Akka.Core;
-using static Zyzzyva.src.Main.Akka.Core.ClusterManager;
-using static Zyzzyva.src.Main.Akka.Core.ProcessorFibonacci;
-using System.Collections.Immutable;
 using System.Threading.Tasks;
 
 namespace Zyzzyva
@@ -23,7 +16,9 @@ namespace Zyzzyva
 
             /*new src.Main.Database.CRUDdb("").readOrdini().ForEach(x => Console.WriteLine(x.customer+x.quant));
             Console.ReadLine();*/
-            Task.Run(() => StartUp(args.Length == 1 ? args[0] : "2551"));
+            
+            Task.Run(() => StartUp(args.Length == 1 ? args[0] : "2554"));
+            Console.ReadLine();
         }
 
         public static void StartUp(string port)

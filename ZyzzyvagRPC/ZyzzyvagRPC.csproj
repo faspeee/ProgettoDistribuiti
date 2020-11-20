@@ -18,6 +18,8 @@
 
   <ItemGroup>
     <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
+	<Protobuf Include="Protos\matematica.proto" GrpcServices="Server" /> 
+	<Protobuf Include="Protos\member.proto" GrpcServices="Server" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +27,7 @@
     <PackageReference Include="Akka.Cluster" Version="1.4.11" />
     <PackageReference Include="Akka.Cluster.Tools" Version="1.4.11" />
     <PackageReference Include="Akka.Serialization.Hyperion" Version="1.4.11" />
+    <PackageReference Include="Google.Protobuf" Version="3.14.0" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.27.0" />
     <PackageReference Include="Hocon.Configuration" Version="2.0.3" />
     <PackageReference Include="Hyperion" Version="0.9.16" />
