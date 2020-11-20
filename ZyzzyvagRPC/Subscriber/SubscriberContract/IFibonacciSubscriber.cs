@@ -6,8 +6,7 @@ namespace ZyzzyvagRPC.Subscriber.SubscriberContract
 {
     public interface IFibonacciSubscriber : ISubscriber
     {
-        event EventHandler<FibonacciEventArgs> FibonacciEvent;
-        event EventHandler<FactorialEventArgs> FactorialEvent;
+        event EventHandler Event;
         void GetFibonacci(int number);
         void GetFactorial(int number);
     }

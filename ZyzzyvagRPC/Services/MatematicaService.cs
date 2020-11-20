@@ -5,6 +5,8 @@ using Microsoft.Extensions.Logging;
 using Grpc.Core;
 using ZyzzyvagRPC.Checazzonesoio;
 using ZyzzyvagRPC.Subscriber.SubscriberContract;
+using ZyzzyvagRPC.ZyzzyvaImplementation.EventArgument;
+using ZyzzyvagRPC.Subscriber.EventArgument;
 
 namespace ZyzzyvagRPC.Services
 {
@@ -23,11 +25,11 @@ namespace ZyzzyvagRPC.Services
         {
             using var subscriberF = _factoryMethod.GetFibonacciSubscriber(); 
 
-            subscriberF.FibonacciEvent += async (sender, args) =>
-                await WriteUpdateAsyncFib(response, args.FibonacciResult);
+            subscriberF.Event += async (sender, args) =>
+                await WriteUpdateAsync(response, ExtendsMethod.ConvertToFibonacci(args));
 
-            subscriberF.FibonacciEvent += async (sender, args) =>
-            await WriteUpdateAsyncFac(response, args.FibonacciResult);
+            subscriberF.Event += async (sender, args) =>
+            await WriteUpdateAsync(response, ExtendsMethod.ConvertToFactorial(args));
 
             subscriberF.CreateActor(); 
             var actionsTask = HandleActions(request, subscriberF, context.CancellationToken); 
@@ -54,7 +56,7 @@ namespace ZyzzyvagRPC.Services
             return completion.Task;
         }
 
-        private async Task WriteUpdateAsyncFib(IServerStreamWriter<MatematicaResponse> stream, int fibonacci)
+        private async Task WriteUpdateAsync(IServerStreamWriter<MatematicaResponse> stream, FibonacciEventArgs fibonacci)
         {
 
             //var reply = new GetMemberReply();
@@ -64,7 +66,7 @@ namespace ZyzzyvagRPC.Services
                 {
                     Msg = new FibonacciReply
                     {
-                        Number = fibonacci
+                        Number = fibonacci.FibonacciResult
                     }
 
                 });
@@ -75,7 +77,7 @@ namespace ZyzzyvagRPC.Services
             }
         }
 
-        private async Task WriteUpdateAsyncFac(IServerStreamWriter<MatematicaResponse> stream, int factorial)
+        private async Task WriteUpdateAsync(IServerStreamWriter<MatematicaResponse> stream, FactorialEventArgs factorial)
         {
 
             //var reply = new GetMemberReply();
@@ -85,7 +87,7 @@ namespace ZyzzyvagRPC.Services
                 {
                     Msg2 = new FactorialReply
                     {
-                        Number = factorial
+                        Number = factorial.FactorialResult
                     }
 
                 });

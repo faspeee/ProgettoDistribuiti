@@ -9,7 +9,7 @@ namespace ZyzzyvagRPC.Subscriber.SubscriberContract
 {
     public interface IMemberSubscriber : ISubscriber
     { 
-        event EventHandler<MemberEventArgs> MemberEvent; 
+        event EventHandler MemberEvent; 
         void GetMembers();  
     }
 

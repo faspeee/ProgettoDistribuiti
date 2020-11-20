@@ -6,6 +6,8 @@ using Grpc.Core;
 using ZyzzyvagRPC.Checazzonesoio;
 using System.Collections.Generic;
 using ZyzzyvagRPC.Subscriber.SubscriberContract;
+using ZyzzyvagRPC.Subscriber.EventArgument;
+using ZyzzyvagRPC.ZyzzyvaImplementation.EventArgument;
 
 namespace ZyzzyvagRPC.Services
 {
@@ -24,7 +26,7 @@ namespace ZyzzyvagRPC.Services
             using var subscriberM = _factoryMethod.GetMemberSubscriber(); 
 
             subscriberM.MemberEvent += async (sender, args) =>
-                await WriteUpdateAsync(response, args.MembersResult);
+                await WriteUpdateAsync(response, ExtendsMethod.ConvertToMember(args));
              
             subscriberM.CreateActor();
 
@@ -52,13 +54,13 @@ namespace ZyzzyvagRPC.Services
             return completion.Task;
         } 
 
-        private async Task WriteUpdateAsync(IServerStreamWriter<GetMemberReply> stream, List<string> members)
+        private async Task WriteUpdateAsync(IServerStreamWriter<GetMemberReply> stream, MemberEventArgs members)
         {
              
             try
             {
                 var response = new GetMemberReply();
-                response.Members.AddRange(members);
+                response.Members.AddRange(members.MembersResult);
                 await stream.WriteAsync(response);
             }
             catch (Exception e)

@@ -18,7 +18,6 @@ namespace Zyzzyva
             Console.ReadLine();*/
             
             Task.Run(() => StartUp(args.Length == 1 ? args[0] : "2554"));
-            Console.ReadLine();
         }
 
         public static void StartUp(string port)

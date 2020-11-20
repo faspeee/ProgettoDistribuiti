@@ -12,7 +12,7 @@ namespace ZyzzyvagRPC.Subscriber.SubscriberImplementation
 {
     public class MemberSubscriber : AbstractSubscriber,IMemberSubscriber 
     {
-        public event EventHandler<MemberEventArgs> MemberEvent;
+        public event EventHandler MemberEvent;
         public override void CreateActor() => _actor = ClusterClientAccess.CreateActor(MemberActor.MyProps(this, MemberEvent));
         public void GetMembers()
         {
@@ -20,10 +20,10 @@ namespace ZyzzyvagRPC.Subscriber.SubscriberImplementation
         }
         private class MemberActor : ReceiveActor
         { 
-            private event EventHandler<MemberEventArgs> MemberEvent;
+            private event EventHandler MemberEvent;
             private readonly MemberSubscriber MemberSubscriber;
             //private Stream stream;
-            public MemberActor(MemberSubscriber member, EventHandler<MemberEventArgs> memberEvent)
+            public MemberActor(MemberSubscriber member, EventHandler memberEvent)
             {
 
                 MemberEvent = memberEvent;
@@ -33,7 +33,7 @@ namespace ZyzzyvagRPC.Subscriber.SubscriberImplementation
                 );
             }
 
-            public static Props MyProps(MemberSubscriber member, EventHandler<MemberEventArgs> memberEvent) => Props.Create(() => new MemberActor(member, memberEvent));
+            public static Props MyProps(MemberSubscriber member, EventHandler memberEvent) => Props.Create(() => new MemberActor(member, memberEvent));
         }
     }
 
