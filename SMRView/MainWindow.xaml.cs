@@ -22,9 +22,6 @@ namespace SMRView
     /// </summary>
     public partial class MainWindow : Window
     {
-        readonly ControllerMatematica  matematica;
-        readonly ControllerMember  member;
-        readonly ControllerPersona  persona;
         private TextBoxTraceListener _textBoxListener { get; set; }
         private TextBoxTraceListener _textBoxListenerMember { get; set; }
         private TextBoxTraceListener _textBoxListenerPerson { get; set; }
@@ -39,22 +36,21 @@ namespace SMRView
             Trace.Listeners.Add(_textBoxListenerMember);
             Trace.Listeners.Add(_textBoxListenerPerson );
 
-            (matematica,member,persona) =  new Program().Main();
             
         }
 
         private async void fibonacci_Click(object sender, RoutedEventArgs e)
         {
-            await matematica.Fibonacci(int.Parse(ReqB.Text.ToString()));
+            await ControllerMatematica.Instance.Fibonacci(int.Parse(ReqB.Text.ToString()));
         }
         private async void factorial_Click(object sender, RoutedEventArgs e)
         {
-            await matematica.Factorial(int.Parse(ReqB.Text.ToString()));
+            await ControllerMatematica.Instance.Factorial(int.Parse(ReqB.Text.ToString()));
         }
 
         private async void membri_Click(object sender, RoutedEventArgs e)
         {
-            await member.Members();
+            await ControllerMember.Instance.Members();
 
         }
 
@@ -65,12 +61,12 @@ namespace SMRView
 
         private async void readAll_Click(object sender, RoutedEventArgs e)
         {
-            await persona.ReadAll();
+            await ControllerPersona.Instance.ReadAll();
         }
 
         private async void insert_Click(object sender, RoutedEventArgs e)
         {
-            await persona.Insert(new ZyzzyvagRPC.Services.PersonagRPC { 
+            await ControllerPersona.Instance.Insert(new ZyzzyvagRPC.Services.PersonagRPC { 
             
             Nome="Giovvanni",
             Cognome = "Mormone",

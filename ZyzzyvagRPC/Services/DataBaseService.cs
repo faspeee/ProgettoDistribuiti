@@ -91,7 +91,10 @@ namespace ZyzzyvagRPC.Services
             //var reply = new GetMemberReply();
             try
             {
-                var response = new WriteResponse();
+                var response = new WriteResponse
+                {
+                    ReadAllResponse = new ReadAllResponse()
+                };
                 response.ReadAllResponse.Persona.AddRange(CreatePersonagRPC(allPerson));
                 await stream.WriteAsync(response);
             }
@@ -138,7 +141,10 @@ namespace ZyzzyvagRPC.Services
 
             try
             {
-                var response = new ReadResponseS();
+                var response = new ReadResponseS
+                {
+                    Msg2 = new ReadAllResponse()
+                };
                 response.Msg2.Persona.AddRange(CreatePersonagRPC(allPerson));
                 await stream.WriteAsync(response); 
             }

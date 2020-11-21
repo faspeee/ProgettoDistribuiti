@@ -20,11 +20,10 @@ namespace Zyzzyva
         public static void Main(string[] args)
         {
 
-            PersonaCRUDdb cRUDdb = new PersonaCRUDdb();
-            Task.Run(() => StartUp(args.Length == 1 ? args[0] : "2554", cRUDdb));
+            Task.Run(() => StartUp(args.Length == 1 ? args[0] : "2554"));
         }
 
-        public static void StartUp(string port, PersonaCRUDdb cRUDdb)
+        public static void StartUp(string port)
         {
 
             var hocon = File.ReadAllText("~/../../Zyzzyva/ActorHocon.hocon");
@@ -42,7 +41,7 @@ namespace Zyzzyva
             //create an actor that handles cluster domain events
             var matematicaManager = system.ActorOf(MatematicaManagerActor.MyProps(port), "matematica_manager");
             var membriManager = system.ActorOf(MembriManagerActor.MyProps(port), "member_manager");
-            var databaseManager = system.ActorOf(DatabaseManagerActor.MyProps(port, cRUDdb), "database_manager");
+            var databaseManager = system.ActorOf(DatabaseManagerActor.MyProps(port), "database_manager");
             ClusterClientReceptionist.Get(system).RegisterService(matematicaManager);
             ClusterClientReceptionist.Get(system).RegisterService(membriManager);
             ClusterClientReceptionist.Get(system).RegisterService(databaseManager);

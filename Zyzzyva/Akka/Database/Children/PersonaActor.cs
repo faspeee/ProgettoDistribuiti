@@ -9,15 +9,13 @@ namespace Zyzzyva.Akka.Database.Children
 {
     public class PersonaActor : ReceiveActor
     {
-        private readonly PersonaCRUDdb _cRUDdb;
         private readonly IActorRef _personaWriter;
         private readonly IActorRef _personaReader;
 
-        public PersonaActor(string id, PersonaCRUDdb cRUDdb)
+        public PersonaActor(string id)
         {
-            _cRUDdb = cRUDdb;
-            _personaReader = Context.ActorOf(PersonaReader.MyProps(id, _cRUDdb), "personaReader");
-            _personaWriter = Context.ActorOf(PersonaWriter.MyProps(id,_cRUDdb), "personaWriter");
+            _personaReader = Context.ActorOf(PersonaReader.MyProps(id), "personaReader");
+            _personaWriter = Context.ActorOf(PersonaWriter.MyProps(id), "personaWriter");
 
             Receive<ReadPersona>(msg => _personaReader.Tell(msg));
             Receive<ReadAllPersona>(msg => _personaReader.Tell(msg));
@@ -27,7 +25,7 @@ namespace Zyzzyva.Akka.Database.Children
             Receive<InsertPersona>(msg => _personaWriter.Tell(msg));
         }
 
-        public static Props MyProps(string id, PersonaCRUDdb cRUDdb) => Props.Create(() => new PersonaActor(id,cRUDdb));
+        public static Props MyProps(string id) => Props.Create(() => new PersonaActor(id));
 
 
     }

@@ -8,10 +8,13 @@ namespace Zyzzyva.Database.Settings
     public class SQLiteDatabaseContext : DbContext
     {
 
+        private static readonly string PATH = "~/../../Zyzzyva/Database/Settings/dbconfig.hocon";
+        private static readonly string PATH2 = "dbconfig.hocon";
+
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            var x = ConfigurationManager.AppSettings["dbpath"]; 
-            options.UseSqlite("Data Source=" + ConfigurationManager.AppSettings["dbpath"]);
+            var congi = Hocon.HoconConfigurationFactory.FromFile(PATH);
+            options.UseSqlite("Data Source=" + congi.GetString("dbpath.path"));
         } 
 
         public DbSet<Persona> Persona { get; set; }
