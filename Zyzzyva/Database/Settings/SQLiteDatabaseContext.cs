@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
-using Zyzzyva.Database.Tables;
+using System.Configuration; 
+using Zyzzyva.Database.Tables; 
 
 namespace Zyzzyva.Database.Settings
 {
@@ -9,7 +9,10 @@ namespace Zyzzyva.Database.Settings
     {
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite("Data Source="+ConfigurationManager.AppSettings["dbpath"]);
+        {
+            var x = ConfigurationManager.AppSettings["dbpath"]; 
+            options.UseSqlite("Data Source=" + ConfigurationManager.AppSettings["dbpath"]);
+        } 
 
         public DbSet<Persona> Persona { get; set; }
         

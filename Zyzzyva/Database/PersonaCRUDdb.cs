@@ -21,27 +21,27 @@ namespace Zyzzyva.Database
         public Persona ReadPersona(int id) => FindPersona(id);
 
 
-        public int InsertPersona(Persona persona)
+        public ImmutableList<Persona> InsertPersona(Persona persona)
         {
             db.Add(persona);
             db.SaveChanges();
-            return persona.id;
+            return db.Persona.ToImmutableList();
         }
 
-        public int DeletePersona(int id)
+        public ImmutableList<Persona> DeletePersona(int id)
         {
             var pers = FindPersona(id);
             db.Remove(pers);
             db.SaveChanges();
-            return id;
+            return db.Persona.ToImmutableList();
         }
 
-        public int UpdatePersona(Persona persona)
+        public ImmutableList<Persona> UpdatePersona(Persona persona)
         {
             var x = FindPersona(persona.id);
             Persona.ModifyPersona(x, persona);
             db.SaveChanges();
-            return persona.id;
+            return db.Persona.ToImmutableList();
 
         }
 

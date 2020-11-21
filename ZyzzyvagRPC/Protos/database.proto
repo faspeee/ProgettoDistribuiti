@@ -1,0 +1,66 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "ZyzzyvagRPC.Services";
+
+package database;
+
+service DataBase { 
+  rpc SubscribeWrite(stream WriteRequest) returns (stream WriteResponse); 
+  rpc SubscribeRead(stream ReadRequest) returns (stream ReadResponseS); 
+
+}
+
+
+message WriteRequest{
+	oneof Action{
+		Insert msg = 1;
+		Update msg2 = 2;
+		Delete msg3 = 3;
+	}
+}
+message WriteResponse{
+	ReadAllResponse readAllResponse=1;
+}
+message ReadRequest{
+	oneof Action{
+		Read msg = 1;
+		ReadAll msg2 = 2;
+	}
+}
+message ReadResponseS{
+	oneof Action{
+		ReadResponse msg = 1;
+		ReadAllResponse msg2 = 2;
+	}
+} 
+message Insert{
+	PersonagRPC persona=1;
+}
+message Update{
+	PersonagRPC persona=1;
+}
+message Delete{
+	int32 id = 1;
+}
+
+message Read{
+	int32 id = 1;
+}
+
+message ReadResponse{
+	PersonagRPC persona=1;
+}
+
+message ReadAll{
+}
+
+message ReadAllResponse{
+	repeated PersonagRPC persona=1;
+}
+message PersonagRPC{
+	int32 id = 1;
+	string nome = 2;
+	string cognome = 3;
+	int32 eta = 4;
+	bool haMacchina = 5;
+}

@@ -22,32 +22,74 @@ namespace SMRView
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        MainWindowViewModel view;
+        readonly ControllerMatematica  matematica;
+        readonly ControllerMember  member;
+        readonly ControllerPersona  persona;
         private TextBoxTraceListener _textBoxListener { get; set; }
+        private TextBoxTraceListener _textBoxListenerMember { get; set; }
+        private TextBoxTraceListener _textBoxListenerPerson { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
             _textBoxListener = new TextBoxTraceListener(ResultB);
+            _textBoxListenerMember = new TextBoxTraceListener(membri);
+            _textBoxListenerPerson = new TextBoxTraceListener(person); 
             Trace.Listeners.Add(_textBoxListener);
-            view = new Program().Main();
+            Trace.Listeners.Add(_textBoxListenerMember);
+            Trace.Listeners.Add(_textBoxListenerPerson );
+
+            (matematica,member,persona) =  new Program().Main();
+            
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void fibonacci_Click(object sender, RoutedEventArgs e)
         {
-            await view.Add(int.Parse(ReqB.Text.ToString()));
-        } 
-        private async void Button_Click_1(object sender, RoutedEventArgs e)
+            await matematica.Fibonacci(int.Parse(ReqB.Text.ToString()));
+        }
+        private async void factorial_Click(object sender, RoutedEventArgs e)
         {
-            await view.Members();
+            await matematica.Factorial(int.Parse(ReqB.Text.ToString()));
+        }
+
+        private async void membri_Click(object sender, RoutedEventArgs e)
+        {
+            await member.Members();
 
         }
 
-        private async void Button_Click_2(object sender, RoutedEventArgs e)
+        private void read_Click(object sender, RoutedEventArgs e)
         {
-            await view.Factorial(int.Parse(ReqB.Text.ToString()));
+          
         }
+
+        private async void readAll_Click(object sender, RoutedEventArgs e)
+        {
+            await persona.ReadAll();
+        }
+
+        private async void insert_Click(object sender, RoutedEventArgs e)
+        {
+            await persona.Insert(new ZyzzyvagRPC.Services.PersonagRPC { 
+            
+            Nome="Giovvanni",
+            Cognome = "Mormone",
+            Eta = -44,
+            HaMacchina = true
+            });
+        }
+
+        private void update_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void delete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
         public class TextBoxTraceListener : TraceListener
         {
             private TextBox _target;
@@ -65,5 +107,6 @@ namespace SMRView
             private void SendString(string message)
             { _target.AppendText(message); }
         }
+         
     }
 }

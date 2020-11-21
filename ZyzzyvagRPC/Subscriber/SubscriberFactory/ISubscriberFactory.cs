@@ -10,5 +10,7 @@ namespace ZyzzyvagRPC.Checazzonesoio
     {
         IFibonacciSubscriber GetFibonacciSubscriber();
         IMemberSubscriber GetMemberSubscriber();
-    }
+        IPersonSubscriber GetPersonSubscriber();
+    } 
+    
 }

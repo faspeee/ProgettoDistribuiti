@@ -8,6 +8,7 @@ namespace ZyzzyvagRPC.Checazzonesoio
         public IFibonacciSubscriber GetFibonacciSubscriber() => new FibonacciSubscriber();
         
         public IMemberSubscriber GetMemberSubscriber() => new MemberSubscriber();
-        
+
+        public IPersonSubscriber GetPersonSubscriber() => new PersonaSubscriber();
     }
 }

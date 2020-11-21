@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="..\ZyzzyvagRPC\Protos\greet.proto" GrpcServices="Client">
-      <Link>Protos\greet.proto</Link>
+    <Protobuf Include="..\ZyzzyvagRPC\Protos\database.proto" GrpcServices="Client">
+      <Link>Protos\database.proto</Link>
     </Protobuf>
     <Protobuf Include="..\ZyzzyvagRPC\Protos\matematica.proto" GrpcServices="Client">
       <Link>Protos\matematica.proto</Link>

@@ -8,14 +8,15 @@ namespace SMRView.Controller
 {
     public class Program
     {
-        public MainWindowViewModel Main()
+        public (ControllerMatematica, ControllerMember, ControllerPersona) Main()
         {
             try
             {
                 var channel = GrpcChannel.ForAddress("https://localhost:5001");
                 var client = new Matematica.MatematicaClient(channel);
                 var client2 = new Member.MemberClient(channel);
-                return new MainWindowViewModel(client,client2);
+                var client3 = new DataBase.DataBaseClient(channel);
+                return (new ControllerMatematica(client), new ControllerMember(client2), new ControllerPersona(client3));
                 
             }
             catch (RpcException e)
@@ -25,7 +26,7 @@ namespace SMRView.Controller
                     Console.WriteLine("Permission denied.");
                 }
             }
-            return null;
+            return (null,null,null);
         } 
     }
 }

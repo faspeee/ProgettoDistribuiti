@@ -1,11 +1,14 @@
-﻿namespace Zyzzyva.Akka.Database.Children
-{
-    internal class UpdatePersonaResponse
-    {
-        public readonly int Mistero;
-        public string ProcessorId;
+﻿using System.Collections.Immutable;
+using Zyzzyva.Database.Tables;
 
-        public UpdatePersonaResponse(int v, string processorId) => (Mistero, ProcessorId) = (v, processorId);
+namespace Zyzzyva.Akka.Database.Children
+{
+    public class UpdatePersonaResponse
+    {
+        public readonly ImmutableList<Persona> Persona;
+        public readonly string ProcessorId;
+
+        public UpdatePersonaResponse(ImmutableList<Persona> persona, string processorId) => (Persona, ProcessorId) = (persona, processorId);
         
     }
 }

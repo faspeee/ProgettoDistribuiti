@@ -8,11 +8,18 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
 
-        <Button Click="Button_Click" Content="Fibonacci" HorizontalAlignment="Left" Margin="418,217,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="ReqB" HorizontalAlignment="Left" Margin="228,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="ResultB" HorizontalAlignment="Left" Margin="525,262,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Membri" HorizontalAlignment="Left" Margin="525,192,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
-        <Button Click="Button_Click_2" Content="Factorial" HorizontalAlignment="Left" Margin="418,260,0,0" VerticalAlignment="Top"/>
+        <Button Click="fibonacci_Click" Content="Fibonacci" HorizontalAlignment="Left" Margin="400,103,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="ReqB" HorizontalAlignment="Left" Margin="53,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="ResultB" HorizontalAlignment="Left" Margin="239,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Membri" HorizontalAlignment="Left" Margin="53,177,0,0" VerticalAlignment="Top" Click="membri_Click"/>
+        <Button Click="factorial_Click" Content="Factorial" HorizontalAlignment="Left" Margin="400,146,0,0" VerticalAlignment="Top" Width="54"/>
+        <Button x:Name="read" Content="Read" HorizontalAlignment="Left" Margin="483,27,0,0" VerticalAlignment="Top" Click="read_Click"/>
+        <Button x:Name="readAll" Content="Read All" HorizontalAlignment="Left" Margin="532,27,0,0" VerticalAlignment="Top" Click="readAll_Click"/>
+        <Button x:Name="insert" Content="Insert" HorizontalAlignment="Left" Margin="601,27,0,0" VerticalAlignment="Top" Click="insert_Click"/>
+        <Button x:Name="update" Content="Update" HorizontalAlignment="Left" Margin="660,27,0,0" VerticalAlignment="Top" Click="update_Click"/>
+        <Button x:Name="delete" Content="Delete" HorizontalAlignment="Left" Margin="727,27,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.518,0.714" Width="47" Click="delete_Click"/>
+        <TextBox x:Name="person" HorizontalAlignment="Left" Margin="483,83,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="291" Height="304"/>
+        <TextBox x:Name="membri" HorizontalAlignment="Left" Margin="33,235,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="367" Height="152"/>
 
     </Grid>
 </Window>
