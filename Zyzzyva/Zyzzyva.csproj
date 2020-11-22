@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
@@ -25,6 +26,12 @@
 
   <ItemGroup>
     <Folder Include="Akka\Matematica\Messages\Nuova cartella\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\.dockerignore" Link=".dockerignore">
+      <DependentUpon>$(DockerDefaultDockerfile)</DependentUpon>
+    </None>
   </ItemGroup>
 
 </Project>

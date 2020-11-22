@@ -10,7 +10,7 @@ EXPOSE 2553
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["ZyzzyvagRPC/ZyzzyvagRPC.csproj", "ZyzzyvagRPC/"]
+COPY ["ZyzzyvagRPC.csproj", "ZyzzyvagRPC/"]
 RUN dotnet restore "ZyzzyvagRPC/ZyzzyvagRPC.csproj"
 COPY . .
 WORKDIR "/src/ZyzzyvagRPC"

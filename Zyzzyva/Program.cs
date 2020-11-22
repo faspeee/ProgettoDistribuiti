@@ -19,14 +19,13 @@ namespace Zyzzyva
     {
         public static void Main(string[] args)
         {
-
-            Task.Run(() => StartUp(args.Length == 1 ? args[0] : "2554"));
+            StartUp(args.Length == 1 ? args[0] : "2554");
         }
 
         public static void StartUp(string port)
         {
 
-            var hocon = File.ReadAllText("~/../../Zyzzyva/ActorHocon.hocon");
+            var hocon = File.ReadAllText("ActorHocon.hocon");
             var section = ConfigurationFactory.ParseString(hocon);
             // var section = (AkkaConfigurationSection)ConfigurationManager.GetSection("akka");
 
@@ -45,6 +44,7 @@ namespace Zyzzyva
             ClusterClientReceptionist.Get(system).RegisterService(matematicaManager);
             ClusterClientReceptionist.Get(system).RegisterService(membriManager);
             ClusterClientReceptionist.Get(system).RegisterService(databaseManager);
+            
             system.WhenTerminated.Wait();
         }
     }
