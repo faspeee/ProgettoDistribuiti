@@ -39,50 +39,51 @@ namespace SMRView
             
         }
 
-        private async void fibonacci_Click(object sender, RoutedEventArgs e)
+        private async void Fibonacci_Click(object sender, RoutedEventArgs e)
         {
             await ControllerMatematica.Instance.Fibonacci(int.Parse(ReqB.Text.ToString()));
         }
-        private async void factorial_Click(object sender, RoutedEventArgs e)
+        private async void Factorial_Click(object sender, RoutedEventArgs e)
         {
             await ControllerMatematica.Instance.Factorial(int.Parse(ReqB.Text.ToString()));
         }
 
-        private async void membri_Click(object sender, RoutedEventArgs e)
+        private async void Membri_Click(object sender, RoutedEventArgs e)
         {
             await ControllerMember.Instance.Members();
 
         }
 
-        private void read_Click(object sender, RoutedEventArgs e)
+        private async void Read_Click(object sender, RoutedEventArgs e)
         {
-          
+            await ControllerPersona.Instance.Read(Convert.ToInt32(idpersonBox.Text));
         }
 
-        private async void readAll_Click(object sender, RoutedEventArgs e)
+        private async void ReadAll_Click(object sender, RoutedEventArgs e)
         {
             await ControllerPersona.Instance.ReadAll();
         }
 
-        private async void insert_Click(object sender, RoutedEventArgs e)
+        private async void Insert_Click(object sender, RoutedEventArgs e)
         {
-            await ControllerPersona.Instance.Insert(new ZyzzyvagRPC.Services.PersonagRPC { 
-            
-            Nome="Giovvanni",
-            Cognome = "Mormone",
-            Eta = -44,
-            HaMacchina = true
-            });
+            await ControllerPersona.Instance.Insert(CreateUpdatePersona);
+        }
+        private ZyzzyvagRPC.Services.PersonagRPC CreateUpdatePersona => new ZyzzyvagRPC.Services.PersonagRPC
+        {
+            Id = idpersonBox.Text!=string.Empty?Convert.ToInt32(idpersonBox.Text):0,
+            Nome =nameBox.Text,
+            Cognome = surNameBox.Text,
+            Eta = Convert.ToInt32(etaBox.Text),
+            HaMacchina = haMachinaBox.IsChecked.Value
+        };
+        private async void Update_Click(object sender, RoutedEventArgs e)
+        {
+            await ControllerPersona.Instance.Update(CreateUpdatePersona);
         }
 
-        private void update_Click(object sender, RoutedEventArgs e)
+        private async void Delete_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void delete_Click(object sender, RoutedEventArgs e)
-        {
-
+            await ControllerPersona.Instance.Delete(Convert.ToInt32(idpersonBox.Text));
         }
 
 

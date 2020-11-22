@@ -2,31 +2,29 @@
 using Akka.Actor;
 using Akka.Cluster.Tools.Client;
 using Akka.Configuration;
-using Akka.Configuration.Hocon;
 using System.Configuration;
-using System.Threading.Tasks;
-using Zyzzyva.Database.Tables;
 using Zyzzyva.Akka.Matematica;
-using Hocon;
 using System.IO;
 using Zyzzyva.Akka.Membri;
 using Zyzzyva.Akka.Database;
-using Zyzzyva.Database;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Zyzzyva
-{
+{ 
     public class Program
     {
         public static void Main(string[] args)
         {
-
-            Task.Run(() => StartUp(args.Length == 1 ? args[0] : "2554"));
-        }
-
+            Console.WriteLine(string.Join(",", args));
+             StartUp(args.Length == 1 ? args[0] : "2554");
+        } 
         public static void StartUp(string port)
         {
-
-            var hocon = File.ReadAllText("~/../../Zyzzyva/ActorHocon.hocon");
+            
+            var hocon = File.ReadAllText(ConfigurationManager.AppSettings["configpath"]);
             var section = ConfigurationFactory.ParseString(hocon);
             // var section = (AkkaConfigurationSection)ConfigurationManager.GetSection("akka");
 

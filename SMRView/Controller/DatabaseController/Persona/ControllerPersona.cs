@@ -29,7 +29,8 @@ namespace SMRView.Controller
         
         public async Task Read(int id)
         {
-            throw new NotImplementedException();
+            var x = new ReadRequest { Msg = new Read {Id=id } };
+            await _duplexStreamPersonaRead.RequestStream.WriteAsync(x);
         }
 
         public async Task ReadAll()
@@ -46,12 +47,14 @@ namespace SMRView.Controller
 
         public async Task Update(PersonagRPC persona)
         {
-            throw new NotImplementedException();
+            var x = new WriteRequest { Msg2 = new Update { Persona = persona } };
+            await _duplexStreamPersonaWrite.RequestStream.WriteAsync(x);
         }
 
         public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            var x = new WriteRequest { Msg3 = new Delete { Id = id } };
+            await _duplexStreamPersonaWrite.RequestStream.WriteAsync(x);
         } 
 
         public async ValueTask DisposeAsync()
