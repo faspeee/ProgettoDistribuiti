@@ -1,6 +1,13 @@
 ﻿akka { 
    actor {
       provider = cluster
+      remote {
+        log-remote-lifecycle-events = DEBUG
+        dot-netty.tcp {
+            hostname = "localhost"
+            port = 0
+        }
+      }
       serializers {
 	      wire = " Akka.Serialization.HyperionSerializer, Akka.Serialization.Hyperion"
          akka-cluster-client = "Akka.Cluster.Tools.Client.Serialization.ClusterClientMessageSerializer, Akka.Cluster.Tools"
@@ -37,13 +44,6 @@
                allow-local-routees = on
             }
          }
-      }
-   }
-   remote {
-      log-remote-lifecycle-events = DEBUG
-      dot-netty.tcp {
-         hostname = "localhost"
-         port = 0
       }
    }
    cluster { 
