@@ -5,21 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SMRView"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-        <Button Click="fibonacci_Click" Content="Fibonacci" HorizontalAlignment="Left" Margin="400,103,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="ReqB" HorizontalAlignment="Left" Margin="53,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="ResultB" HorizontalAlignment="Left" Margin="239,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Membri" HorizontalAlignment="Left" Margin="53,177,0,0" VerticalAlignment="Top" Click="membri_Click"/>
-        <Button Click="factorial_Click" Content="Factorial" HorizontalAlignment="Left" Margin="400,146,0,0" VerticalAlignment="Top" Width="54"/>
-        <Button x:Name="read" Content="Read" HorizontalAlignment="Left" Margin="483,27,0,0" VerticalAlignment="Top" Click="read_Click"/>
-        <Button x:Name="readAll" Content="Read All" HorizontalAlignment="Left" Margin="532,27,0,0" VerticalAlignment="Top" Click="readAll_Click"/>
-        <Button x:Name="insert" Content="Insert" HorizontalAlignment="Left" Margin="601,27,0,0" VerticalAlignment="Top" Click="insert_Click"/>
-        <Button x:Name="update" Content="Update" HorizontalAlignment="Left" Margin="660,27,0,0" VerticalAlignment="Top" Click="update_Click"/>
-        <Button x:Name="delete" Content="Delete" HorizontalAlignment="Left" Margin="727,27,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.518,0.714" Width="47" Click="delete_Click"/>
-        <TextBox x:Name="person" HorizontalAlignment="Left" Margin="483,83,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="291" Height="304"/>
-        <TextBox x:Name="membri" HorizontalAlignment="Left" Margin="33,235,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="367" Height="152"/>
-
+        Title="SMRView" MinHeight="450" MinWidth="1200">
+    <Grid x:Name="grid" Margin="0,0,0,0">
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="ReqB" HorizontalAlignment="Left" Margin="36,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="ResultB" HorizontalAlignment="Left" Margin="200,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Click="Fibonacci_Click" Content="Fibonacci" HorizontalAlignment="Left" Margin="36,104,0,0" VerticalAlignment="Top" Width="60"/>
+        <Button Click="Factorial_Click" Content="Factorial" HorizontalAlignment="Left" Margin="112,104,0,0" VerticalAlignment="Top" Width="55"/>
+        <TextBox x:Name="membri" HorizontalAlignment="Left" Margin="36,257,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Height="137"/>
+        <Button Click="Membri_Click" Content="Membri" HorizontalAlignment="Left" Margin="36,217,0,0" VerticalAlignment="Top" Width="74"/>
+        <TextBox x:Name="person" Grid.Column="2" HorizontalAlignment="Left" Margin="39,62,0,0"  TextWrapping="Wrap" VerticalAlignment="Stretch" Width="297" Height="332"/>
+        <TextBox x:Name="nameBox" Grid.Column="1" HorizontalAlignment="Center" Margin="0,96,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="196"/>
+        <TextBox x:Name="surNameBox" Grid.Column="1" HorizontalAlignment="Center" Margin="0,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="196"/>
+        <Label Content="Nome" Grid.Column="1" HorizontalAlignment="Left" Margin="21,92,0,0" VerticalAlignment="Top"/>
+        <Label Content="Ha Machina" Grid.Column="1" HorizontalAlignment="Left" Margin="21,214,0,0" VerticalAlignment="Top"/>
+        <Label Content="Eta" Grid.Column="1" HorizontalAlignment="Left" Margin="21,172,0,0" VerticalAlignment="Top"/>
+        <Label Content="Cognome" Grid.Column="1" HorizontalAlignment="Left" Margin="21,127,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="etaBox" Grid.Column="1" HorizontalAlignment="Center" Margin="0,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="196"/>
+        <CheckBox  x:Name="haMachinaBox" Grid.Column="1" HorizontalAlignment="Left" Margin="102,220,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="idpersonBox" Grid.Column="1" HorizontalAlignment="Left" Margin="102,286,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163"/>
+        <Button x:Name="insert" Click="Insert_Click" Content="Inserta" Grid.Column="1" HorizontalAlignment="Left" Margin="294,222,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="update" Click="Update_Click" Content="Aggiorna" Grid.Column="1" HorizontalAlignment="Left" Margin="294,286,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="Id Persona" Grid.Column="1" HorizontalAlignment="Left" Margin="21,282,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="read" Click="Read_Click" Content="Read" Grid.Column="1" HorizontalAlignment="Left" Margin="83,346,0,0" VerticalAlignment="Top" Width="83"/>
+        <Button x:Name="delete"  Click="Delete_Click" Content="Delete" Grid.Column="1" HorizontalAlignment="Left" Margin="184,346,0,0" VerticalAlignment="Top" Width="81"/>
+        <Button x:Name="readAll" Click="ReadAll_Click" Content="Read All" Grid.Column="2" HorizontalAlignment="Left" Margin="39,22,0,0" VerticalAlignment="Top" Width="94"/>
     </Grid>
 </Window>
+ 

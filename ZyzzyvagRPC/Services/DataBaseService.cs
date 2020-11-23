@@ -201,6 +201,7 @@ namespace ZyzzyvagRPC.Services
         }
         private Persona ConvertgRPCToPerson(PersonagRPC personagRPC) => new Persona
         {
+            id = personagRPC.Id==0?0:personagRPC.Id,
             nome = personagRPC.Nome,
             cognome = personagRPC.Cognome,
             eta = personagRPC.Eta,
