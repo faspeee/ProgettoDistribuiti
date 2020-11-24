@@ -1,0 +1,38 @@
+version: '3.4'
+
+services:
+  zyzzyva:
+    image: ${DOCKER_REGISTRY-}zyzzyva
+    build:
+      context: .
+      dockerfile: Zyzzyva/Dockerfile
+    hostname: localhost
+    network_mode: "host"
+    ports: 
+      - '2551:2551'
+    environment:
+      CLUSTER_PORT: 2551
+      CLUSTER_IP: "localhost"
+      CLUSTER_SEEDS: "akka.tcp://cluster-playground@localhost:2551"
+
+  replica1:
+    image: ${DOCKER_REGISTRY-}zyzzyva 
+    network_mode: "host"
+    ports: 
+      - '2551:2551'
+    environment:
+      CLUSTER_PORT: 2552
+      CLUSTER_SEEDS: "akka.tcp://cluster-playground@localhost:2551"
+    depends_on:
+      - "zyzzyva"
+
+  replica2:
+    image: ${DOCKER_REGISTRY-}zyzzyva
+    network_mode: "host"
+    ports: 
+      - '2551:2551'
+    environment:
+      CLUSTER_PORT: 2553
+      CLUSTER_SEEDS: "akka.tcp://cluster-playground@localhost:2551"
+    depends_on:
+      - "zyzzyva"
