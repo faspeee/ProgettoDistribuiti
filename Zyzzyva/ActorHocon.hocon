@@ -1,13 +1,6 @@
 ﻿akka { 
    actor {
       provider = cluster
-      remote {
-        log-remote-lifecycle-events = DEBUG
-        dot-netty.tcp {
-            hostname = "localhost"
-            port = 0
-        }
-      }
       serializers {
 	      wire = " Akka.Serialization.HyperionSerializer, Akka.Serialization.Hyperion"
          akka-cluster-client = "Akka.Cluster.Tools.Client.Serialization.ClusterClientMessageSerializer, Akka.Cluster.Tools"
@@ -46,10 +39,19 @@
          }
       }
    }
+   remote {
+      log-remote-lifecycle-events = DEBUG
+      dot-netty.tcp {  
+         #public-hostname = "localhost"
+         hostname = "127.0.0.1"
+          # the values below this comment may be overridden by Akka.Bootstrap.Docker at runtime 
+         port = 2551
+        # public-port=0
+      }
+   }
    cluster { 
       seed-nodes = [
-         "akka.tcp://cluster-playground@localhost:2551",
-         "akka.tcp://cluster-playground@localhost:2552"
+         "akka.tcp://cluster-playground@127.0.0.1:2551"
          ]
       auto-down-unreachable-after = 10s
    }

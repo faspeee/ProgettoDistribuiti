@@ -7,7 +7,7 @@ EXPOSE 5001
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["ZyzzyvagRPC.csproj", "ZyzzyvagRPC/"]
+COPY ["ZyzzyvagRPC/ZyzzyvagRPC.csproj", "ZyzzyvagRPC/"]
 RUN dotnet restore "ZyzzyvagRPC/ZyzzyvagRPC.csproj"
 COPY . .
 WORKDIR "/src/ZyzzyvagRPC"
@@ -17,7 +17,12 @@ FROM build AS publish
 RUN dotnet publish "ZyzzyvagRPC.csproj" -c Release -o /app/publish
 
 FROM base AS final
-ENV ASPNETCORE_URLS=https://+:443
+ENV ASPNETCORE_URLS="https://+;http://+"
+ENV ASPNETCORE_HTTPS_PORT=443 
+ENV ASPNETCORE_Kestrel__Certificates__Default__Password="test123" 
+ENV ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx 
+WORKDIR /
+COPY ["ZyzzyvagRPC/aspnetapp.pfx", "/https/aspnetapp.pfx"]
 WORKDIR /app
 COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "publish/ZyzzyvagRPC.dll"]
