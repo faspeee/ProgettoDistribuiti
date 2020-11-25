@@ -17,7 +17,12 @@ FROM build AS publish
 RUN dotnet publish "ZyzzyvagRPC.csproj" -c Release -o /app/publish
 
 FROM base AS final
-ENV ASPNETCORE_URLS=https://+:443
+ENV ASPNETCORE_URLS="https://+;http://+"
+ENV ASPNETCORE_HTTPS_PORT=443 
+ENV ASPNETCORE_Kestrel_CertificatesDefault_Password="test123" 
+ENV ASPNETCORE_Kestrel_CertificatesDefault_Path=/https/aspnetapp.pfx 
+WORKDIR /
+COPY ["ZyzzyvagRPC/aspnetapp.pfx", "/https/aspnetapp.pfx"]
 WORKDIR /app
 COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "publish/ZyzzyvagRPC.dll"]

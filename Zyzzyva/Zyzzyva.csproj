@@ -1,14 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <LangVersion>preview</LangVersion>
+	  <LangVersion>preview</LangVersion>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Akka" Version="1.4.11" />
     <PackageReference Include="Akka.Cluster" Version="1.4.11" />
     <PackageReference Include="Akka.Cluster.Tools" Version="1.4.11" />
     <PackageReference Include="Akka.Serialization.Hyperion" Version="1.4.11" />
@@ -16,13 +15,13 @@
     <PackageReference Include="Hocon.Configuration" Version="2.0.3" />
     <PackageReference Include="Hyperion" Version="0.9.16" />
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
-    <PackageReference Include="System.Data.SQLite.EF6" Version="1.0.113" />
   </ItemGroup>
 
   <ItemGroup>
