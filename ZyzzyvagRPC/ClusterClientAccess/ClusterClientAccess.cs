@@ -1,8 +1,13 @@
 ﻿using Akka.Actor;
 using Akka.Cluster.Tools.Client;
+using Akka.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Configuration;
+using System.IO;
+using System.Linq;
+using System.Net;
 using System.Text;
 using Zyzzyva.Akka.Database.Messages;
 using Zyzzyva.Akka.Matematica.Messages;
@@ -15,14 +20,24 @@ namespace ZyzzyvaRPC.ClusterClientAccess
     {
 
         private static readonly Lazy<ClusterClientAccess> instance = new (() => new ClusterClientAccess());
-        private static readonly ActorSystem system = ActorSystem.Create("cluster");
+        private static readonly ActorSystem system = Create();
         private readonly IActorRef clusterClient;
         //private readonly ClusterClient actorClusterClient;
-
+        private static ActorSystem Create()
+        {
+            var hocon = File.ReadAllText(ConfigurationManager.AppSettings["configpath"]);
+            var section = ConfigurationFactory.ParseString(hocon);
+            var config = ConfigurationFactory.ParseString("akka.remote.dot-netty.tcp.hostname=" + Dns.GetHostEntry(Dns.GetHostName()).AddressList.First().ToString())
+               .WithFallback(section);
+            return ActorSystem.Create("cluster",config);
+        }
 
         private ClusterClientAccess()
         {
-            var t = ImmutableHashSet.Create(ActorPath.Parse("akka.tcp://cluster-playground@localhost:2552/system/receptionist"));
+
+            
+
+            var t = ImmutableHashSet.Create(ActorPath.Parse("akka.tcp://cluster-playground@zyzzyva:9090/system/receptionist"));
             clusterClient = system.ActorOf(ClusterClient.Props(ClusterClientSettings.Create(system).WithInitialContacts(t)), "client");
             //actorClusterClient = new ClusterClient();
 

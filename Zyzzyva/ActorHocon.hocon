@@ -42,16 +42,22 @@
    remote {
       log-remote-lifecycle-events = DEBUG
       dot-netty.tcp {  
-         #public-hostname = "localhost"
-         hostname = "127.0.0.1"
+
+         bind-hostname = "192.168.1.100"
+         bind-port=""
+         hostname = localhost
           # the values below this comment may be overridden by Akka.Bootstrap.Docker at runtime 
-         port = 2551
-        # public-port=0
+         port = 0
+        
       }
    }
    cluster { 
+    downing-provider-class = "Akka.Cluster.SplitBrainResolver, Akka.Cluster"
+    split-brain-resolver {
+      active-strategy = keep-majority
+    }
       seed-nodes = [
-         "akka.tcp://cluster-playground@127.0.0.1:2551"
+         "akka.tcp://cluster-playground@zyzzyva:9090", 
          ]
       auto-down-unreachable-after = 10s
    }
