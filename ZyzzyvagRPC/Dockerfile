@@ -25,4 +25,5 @@ WORKDIR /
 COPY ["ZyzzyvagRPC/aspnetapp.pfx", "/https/aspnetapp.pfx"]
 WORKDIR /app
 COPY --from=publish /app .
+COPY ["ZyzzyvagRPC/ActorHocon.hocon", "ActorHocon.hocon"]
 ENTRYPOINT ["dotnet", "publish/ZyzzyvagRPC.dll"]
