@@ -18,6 +18,8 @@ RUN dotnet publish "Zyzzyva.csproj" -c Release -o /app/publish
 FROM base AS final  
 WORKDIR /app
 COPY --from=publish /app .
-COPY ["Zyzzyva/ActorHocon.hocon", "ActorHocon.hocon"]
+COPY ["Zyzzyva/ActorHocon.hocon", "/app/config/ActorHocon.hocon"]
+COPY ["Zyzzyva/Database/Settings/dbconfig.hocon", "/app/config/dbconfig.hocon"]
+COPY ["Zyzzyva/Database/DB/testAkkaActorDB.sqlite", "/app/DB/testAkkaActorDB.sqlite"]
 ENTRYPOINT ["dotnet", "publish/Zyzzyva.dll"]
  

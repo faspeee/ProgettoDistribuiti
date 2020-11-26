@@ -16,7 +16,7 @@ namespace Zyzzyva.Akka.Matematica
         {
             _matematicaRouter = Context.ActorOf(Props.Empty.WithRouter(FromConfig.Instance), "matematicaRouter");
 
-            Context.ActorOf(Matematica.MyProps(id), "matematica");
+            Context.ActorOf(Matematica.MyProps(Self.Path.Address.Port+id), "matematica");
 
             Receive<GetFibonacci>(value => _matematicaRouter.Forward(new ComputeFibonacci(value.Number,value.ActorRef1)));
             Receive<GetFactorial>(value => _matematicaRouter.Forward(new ComputeFactorial(value.Number, value.ActorRef1)));

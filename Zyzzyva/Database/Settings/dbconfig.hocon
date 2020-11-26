@@ -1,3 +1,3 @@
 ﻿dbpath{
-	path = "~/../../Zyzzyva/Database/DB/testAkkaActorDB.sqlite"
+	path = "DB/testAkkaActorDB.sqlite"
 }

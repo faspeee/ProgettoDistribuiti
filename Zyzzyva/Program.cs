@@ -15,61 +15,44 @@ namespace Zyzzyva
 {
     public class Program
     {
+
+        private static readonly string MATEMATICA_NAME = "matematica_manager";
+        private static readonly string DATABASE_NAME = "database_manager";
+        private static readonly string MEMBER_NAME = "member_manager";
+
         public static void Main(string[] args)
         {
-           
-             StartUp(args.Length == 1 ? args[0] : "2553");
+             StartUp(args.Length == 1 ? args[0] : "0");
         } 
-        public static (string,string) GetElement(string port)
-        {
-            var finalport= Environment.GetEnvironmentVariable("CLUSTER_PORT") ?? port;
-            var finalIp = Environment.GetEnvironmentVariable("CLUSTER_IP")==null || Environment.GetEnvironmentVariable("CLUSTER_IP").Length==0? Dns.GetHostEntry(Dns.GetHostName()).AddressList.First().ToString(): Environment.GetEnvironmentVariable("CLUSTER_IP");
-            return (finalIp, finalport);
-        }
-        public static void StartUp(string port)
+        
+        private static void StartUp(string port)
         {
             var (finalIp, finalPort) = GetElement(port);
             var hocon = File.ReadAllText(ConfigurationManager.AppSettings["configpath"]);
-            //Console.WriteLine("PORT" + Environment.GetEnvironmentVariable("CLUSTER_PORT")); 
-            //Console.WriteLine("IP" + Environment.GetEnvironmentVariable("CLUSTER_IP"));
-            Console.WriteLine(Dns.GetHostEntry("zyzzyva").AddressList.First().ToString());
-            //Console.WriteLine("hocon" + hocon);
-
-            //Console.WriteLine("finalIP" + finalIp);
-
-            //Console.WriteLine("finalPort" + finalPort);
             var section = ConfigurationFactory.ParseString(hocon);
-            //host.AddressList.First();
             var config = ConfigurationFactory.ParseString("akka.remote.dot-netty.tcp.hostname="+finalIp)
                 .WithFallback(section);
 
-            //var config3 = ConfigurationFactory.ParseString("akka.remote.dot-netty.tcp.public-hostname=" + host.AddressList.First().ToString())
-            //     .WithFallback(config);
-            // var section = (AkkaConfigurationSection)ConfigurationManager.GetSection("akka"); 
-            //Override the configuration of the port 
-           //Console.WriteLine("HOLA1" + finalPort);
             var config2 =
                 ConfigurationFactory.ParseString("akka.remote.dot-netty.tcp.port=" + finalPort)
-                    .WithFallback(config);//.BootstrapFromDocker();
+                    .WithFallback(config);
 
-           // Console.WriteLine("HOLA2" + config2.ToString());
-
-
-           // var tt =Environment.GetEnvironmentVariable("CLUSTER_IP").Length!=0? Environment.GetEnvironmentVariable("CLUSTER_IP") : "127.0.0.1";
-           //  "akka.tcp://cluster-playground@127.0.0.1:2551"
-           // var config3 =ConfigurationFactory.ParseString("akka.cluster.seed-nodes="+ $"\"[akka.tcp://cluster-playground@{tt}:9090]\"").WithFallback(config2);
-            //create an Akka system
-           // Console.WriteLine("HOLA3"+config3);
             var system = ActorSystem.Create("cluster-playground", config2);
-           
-            //create an actor that handles cluster domain events
-            var matematicaManager = system.ActorOf(MatematicaManagerActor.MyProps(port), "matematica_manager");
-            var membriManager = system.ActorOf(MembriManagerActor.MyProps(port), "member_manager");
-            var databaseManager = system.ActorOf(DatabaseManagerActor.MyProps(port), "database_manager");
+
+            var matematicaManager = system.ActorOf(MatematicaManagerActor.MyProps(MATEMATICA_NAME), MATEMATICA_NAME);
+            var membriManager = system.ActorOf(MembriManagerActor.MyProps(MEMBER_NAME), MEMBER_NAME);
+            var databaseManager = system.ActorOf(DatabaseManagerActor.MyProps(DATABASE_NAME), DATABASE_NAME);
             ClusterClientReceptionist.Get(system).RegisterService(matematicaManager);
             ClusterClientReceptionist.Get(system).RegisterService(membriManager);
             ClusterClientReceptionist.Get(system).RegisterService(databaseManager);
             system.WhenTerminated.Wait();
+        }
+
+        private static (string, string) GetElement(string port)
+        {
+            var finalport = Environment.GetEnvironmentVariable("CLUSTER_PORT") ?? port;
+            var finalIp = Environment.GetEnvironmentVariable("CLUSTER_IP") == null || Environment.GetEnvironmentVariable("CLUSTER_IP").Length == 0 ? Dns.GetHostEntry(Dns.GetHostName()).AddressList.First().ToString() : Environment.GetEnvironmentVariable("CLUSTER_IP");
+            return (finalIp, finalport);
         }
     }
 }

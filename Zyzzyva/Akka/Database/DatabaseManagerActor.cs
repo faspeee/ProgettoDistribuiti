@@ -16,7 +16,7 @@ namespace Zyzzyva.Akka.Database
         {
             _databaseRouter = Context.ActorOf(Props.Empty.WithRouter(FromConfig.Instance), "databaseRouter");
 
-            Context.ActorOf(PersonaActor.MyProps(id), "database");
+            Context.ActorOf(PersonaActor.MyProps(Self.Path.Address.Port + id), "database");
             
             Receive<ReadPersona>(msg => _databaseRouter.Forward(msg));
             Receive<ReadAllPersona>(msg => _databaseRouter.Forward(msg));

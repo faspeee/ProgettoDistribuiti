@@ -12,9 +12,10 @@ namespace Zyzzyva.Akka.Membri
 
         public MembriManagerActor(string id)
         {
+
             _membriRouter = Context.ActorOf(Props.Empty.WithRouter(FromConfig.Instance), "memberRouter");
 
-            Context.ActorOf(Members.MyProps(id, Cluster.Get(Context.System)), "members");
+            Context.ActorOf(Members.MyProps(Self.Path.Address.Port + id, Cluster.Get(Context.System)), "members");
 
             Receive<GetClusterMembers>(msg => _membriRouter.Forward(new GetMembers(msg.ActorRef1)));
 

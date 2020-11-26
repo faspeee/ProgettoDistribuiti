@@ -57,7 +57,9 @@
       active-strategy = keep-majority
     }
       seed-nodes = [
-         "akka.tcp://cluster-playground@zyzzyva:9090", 
+         "akka.tcp://cluster-playground@zyzzyva:9090",
+         "akka.tcp://cluster-playground@zyzzyva1:9091",
+         "akka.tcp://cluster-playground@zyzzyva3:9092",
          ]
       auto-down-unreachable-after = 10s
    }
