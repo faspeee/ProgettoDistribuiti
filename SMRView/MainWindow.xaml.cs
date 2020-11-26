@@ -32,6 +32,7 @@ namespace SMRView
             _textBoxListener = new TextBoxTraceListener(ResultB);
             _textBoxListenerMember = new TextBoxTraceListener(membri);
             _textBoxListenerPerson = new TextBoxTraceListener(person); 
+         
             Trace.Listeners.Add(_textBoxListener);
             Trace.Listeners.Add(_textBoxListenerMember);
             Trace.Listeners.Add(_textBoxListenerPerson );

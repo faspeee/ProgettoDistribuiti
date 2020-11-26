@@ -7,6 +7,7 @@ using ZyzzyvagRPC.Subscriber.EventArgument;
 
 namespace ZyzzyvagRPC.Subscriber.SubscriberContract
 {
+    /// <include file="../../Docs/Subscriber/SubscriberContract/IPersonSubscriber.xml" path='docs/members[@name="ipersonasubscriber"]/IPersonSubscriber/*'/>
     public interface IPersonSubscriber : ISubscriber
     {
         event EventHandler<ReadEventArgs> ReadEvent;
@@ -14,10 +15,16 @@ namespace ZyzzyvagRPC.Subscriber.SubscriberContract
         event EventHandler<InsertEventArgs> InsertEvent;
         event EventHandler<UpdateEventArgs> UpdateEvent;
         event EventHandler<DeleteEventArgs> DeleteEvent;
+
+        /// <include file="../../Docs/Subscriber/SubscriberContract/IPersonSubscriber.xml" path='docs/members[@name="isubscriber"]/Read/*'/>
         void Read(int id);
+        /// <include file="../../Docs/Subscriber/SubscriberContract/IPersonSubscriber.xml" path='docs/members[@name="isubscriber"]/ReadAll/*'/>
         void ReadAll();
+        /// <include file="../../Docs/Subscriber/SubscriberContract/IPersonSubscriber.xml" path='docs/members[@name="isubscriber"]/Insert/*'/>
         void Insert(Persona persona);
+        /// <include file="../../Docs/Subscriber/SubscriberContract/IPersonSubscriber.xml" path='docs/members[@name="isubscriber"]/Update/*'/>
         void Update(Persona persona);
+        /// <include file="../../Docs/Subscriber/SubscriberContract/IPersonSubscriber.xml" path='docs/members[@name="isubscriber"]/Delete/*'/>
         void Delete(int id);
     }
 }

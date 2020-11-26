@@ -30,7 +30,7 @@
             }
          }
          /database_manager/databaseRouter {
-            router = round-robin-group
+            router = broadcast-group
             routees.paths = ["/user/database_manager/database"]
             cluster {
                enabled = on

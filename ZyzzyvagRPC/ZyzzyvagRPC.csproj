@@ -40,4 +40,8 @@
     <ProjectReference Include="..\Zyzzyva\Zyzzyva.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Docs\Subscriber\EventArgument\" />
+  </ItemGroup>
+
 </Project>

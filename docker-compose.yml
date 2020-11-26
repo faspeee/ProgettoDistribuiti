@@ -51,6 +51,7 @@ services:
 
   zyzzyvagrpc:
     image: ${DOCKER_REGISTRY-}zyzzyvagrpc
+    hostname: zyzzyvagrpc
     ports:
       - 5001:443
     build:
@@ -59,6 +60,19 @@ services:
     environment:
       CLUSTER_IP: ""
       CLUSTER_PORT: 0 
+
+  zyzzyvagrpc2:
+    image: ${DOCKER_REGISTRY-}zyzzyvagrpc
+    hostname: zyzzyvagrpc2
+    ports:
+      - 5002:443
+    build:
+      context: .
+      dockerfile: ZyzzyvagRPC/Dockerfile
+    environment:
+      CLUSTER_IP: ""
+      CLUSTER_PORT: 0 
+
   nginx:
     image: ${DOCKER_REGISTRY-}nginx
     ports:

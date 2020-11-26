@@ -1,0 +1,67 @@
+﻿<docs>
+	<members name="ipersonasubscriber">
+		<IPersonSubscriber>
+			<summary>
+				The main Subscriber Interfaces.
+			</summary>
+			<remarks>
+				can create an Actor to receive responses from the cluster.
+			</remarks>
+		</IPersonSubscriber>
+		<Read>
+			<summary>
+				create an actor to receive responses.
+			</summary>
+			<example>
+				<code>
+					var actorRef f = ISubscriber.CreateActor();
+				</code>
+			</example>
+			See <see cref="PersonaSubscriber.CreateActor()"/> to add doubles.
+		</Read>
+		<ReadAll>
+			<summary>
+				create an actor to receive responses.
+			</summary>
+			<example>
+				<code>
+					var actorRef f = ISubscriber.CreateActor();
+				</code>
+			</example>
+			See <see cref="PersonaSubscriber.CreateActor()"/> to add doubles.
+		</ReadAll>
+		<Insert>
+			<summary>
+				create an actor to receive responses.
+			</summary>
+			<example>
+				<code>
+					var actorRef f = ISubscriber.CreateActor();
+				</code>
+			</example>
+			See <see cref="PersonaSubscriber.CreateActor()"/> to add doubles.
+		</Insert>
+		<Update>
+			<summary>
+				create an actor to receive responses.
+			</summary>
+			<example>
+				<code>
+					var actorRef f = ISubscriber.CreateActor();
+				</code>
+			</example>
+			See <see cref="PersonaSubscriber.CreateActor()"/> to add doubles.
+		</Update>
+		<Delete>
+			<summary>
+				create an actor to receive responses.
+			</summary>
+			<example>
+				<code>
+					var actorRef f = ISubscriber.CreateActor();
+				</code>
+			</example>
+			See <see cref="PersonaSubscriber.CreateActor()"/> to add doubles.
+		</Delete>
+	</members>
+</docs>
