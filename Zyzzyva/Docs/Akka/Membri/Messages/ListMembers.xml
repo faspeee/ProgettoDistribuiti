@@ -1,0 +1,30 @@
+﻿<docs>
+  <members name="listmembers">
+    <ListMembers>
+      <summary>
+        The Message to request the list of the members of the cluster.
+      </summary>
+    </ListMembers>
+    <Addresses>
+      <summary>
+        Obtains a List of all the addresses of the members of the cluster.
+      </summary>
+      <returns>
+        The <see cref="List{T}"/> of <see cref="string"/>
+        of the members of the cluster.
+      </returns>
+    </Addresses>
+    <ListMembersConstructor>
+      <summary>
+        Creates the ListMembers message.
+      </summary>
+      <param name="members">
+        The <see cref="List{T}"/> of <see cref="string"/>
+        of the members of the cluster.
+      </param>
+      <returns>
+        The ListMembers.
+      </returns>
+    </ListMembersConstructor>
+  </members>
+</docs>

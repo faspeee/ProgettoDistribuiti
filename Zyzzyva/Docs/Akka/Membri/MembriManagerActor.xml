@@ -1,0 +1,19 @@
+﻿<docs>
+	<members name="membrimanager">
+		<MembriManagerActor>
+			<summary>
+				The Manager Actor of the Membri actor hierarchy. 
+			</summary>
+			<remarks>
+				Creates an actor that routes requests to the member hierarchy.
+			</remarks>
+		</MembriManagerActor>
+		<MyProps>
+			<summary>
+				Static method to create the MembriManagerActor throug the Props.
+			</summary>      
+      <param name="id">An identifier to distinguish between actors.</param>
+			<returns>The props to create the manager actor.</returns>
+		</MyProps>
+	</members>
+</docs>

@@ -1,0 +1,16 @@
+﻿<docs>
+  <members name="members">
+    <Members>
+      <summary>
+        The Actor that gets the informations about the members of the cluster. 
+      </summary>
+    </Members>
+    <MyProps>
+      <summary>
+        Static method to create the Members Actor throug the Props.
+      </summary>
+      <param name="id">An identifier to distinguish between actors.</param>
+      <returns>The props to create the manager actor.</returns>
+    </MyProps>
+  </members>
+</docs>

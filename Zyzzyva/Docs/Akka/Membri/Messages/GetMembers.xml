@@ -1,0 +1,29 @@
+﻿<docs>
+  <members name="getmembers">
+    <GetMembers>
+      <summary>
+        The Message to request the members of the cluster.
+      </summary>
+    </GetMembers>
+    <ActorRef1>
+      <summary>
+        The <see cref="IActorRef"/> of the sender of the request.
+      </summary>
+      <remarks>This is the actor that will receive the response to the request.</remarks>
+      <returns>
+        The <see cref="IActorRef"/> of the sender of the request.
+      </returns>
+    </ActorRef1>
+    <GetMembersConstructor>
+      <summary>
+        Creates the GetMembers message.
+      </summary>
+      <param name="actorRef">
+        The <see cref="IActorRef"/> of the sender of the request.
+      </param>
+      <returns>
+        The GetMembersMessage
+      </returns>
+    </GetMembersConstructor>
+  </members>
+</docs>

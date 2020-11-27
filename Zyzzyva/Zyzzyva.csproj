@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
 	  <LangVersion>preview</LangVersion>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
@@ -26,6 +27,7 @@
 
   <ItemGroup>
     <Folder Include="Akka\Matematica\Messages\Nuova cartella\" />
+    <Folder Include="Docs\Akka\Database\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -5,12 +5,6 @@ using static Akka.Cluster.ClusterEvent;
 
 namespace Zyzzyva.Akka.Membri.Children
 {
-    ///<summary>
-    ///sfdfrghb 
-    /// /// <param name="bytes">The array containing the serialized object</param>
-    /// <param name="type">The type of object contained in the array</param>
-    /// <returns>The object contained in the array</returns>
-    ///</summary>
     public class ClusterListener : ReceiveActor
     {
         private readonly ILoggingAdapter _log = Context.GetLogger();

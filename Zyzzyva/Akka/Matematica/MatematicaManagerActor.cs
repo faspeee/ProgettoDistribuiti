@@ -12,7 +12,7 @@ namespace Zyzzyva.Akka.Matematica
 
         private readonly IActorRef _matematicaRouter;
 
-        public MatematicaManagerActor(string id)
+        private MatematicaManagerActor(string id)
         {
             _matematicaRouter = Context.ActorOf(Props.Empty.WithRouter(FromConfig.Instance), "matematicaRouter");
 

@@ -6,11 +6,12 @@ using Zyzzyva.Akka.Membri.Messages;
 
 namespace Zyzzyva.Akka.Membri
 {
-    class MembriManagerActor : ReceiveActor
+    /// <include file="../../Docs/Akka/Membri/MembriManagerActor.xml" path='docs/members[@name="membrimanager"]/MembriManagerActor/*'/>
+    public class MembriManagerActor : ReceiveActor
     {
         private readonly IActorRef _membriRouter;
 
-        public MembriManagerActor(string id)
+        private MembriManagerActor(string id)
         {
 
             _membriRouter = Context.ActorOf(Props.Empty.WithRouter(FromConfig.Instance), "memberRouter");
@@ -20,6 +21,8 @@ namespace Zyzzyva.Akka.Membri
             Receive<GetClusterMembers>(msg => _membriRouter.Forward(new GetMembers(msg.ActorRef1)));
 
         }
+
+        /// <include file="../../Docs/Akka/Membri/MembriManagerActor.xml" path='docs/members[@name="membrimanager"]/MyProps/*'/>
 
         public static Props MyProps(string id) => Props.Create(() => new MembriManagerActor(id));
     }
