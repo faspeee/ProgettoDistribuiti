@@ -12,6 +12,8 @@ using ZyzzyvaRPC.ClusterClientAccess;
 
 namespace ZyzzyvagRPC.Subscriber.SubscriberImplementation
 {
+
+    /// <inheritdoc/>
     public class PersonaSubscriber : AbstractSubscriber, IPersonSubscriber
     {
         public event EventHandler<ReadEventArgs> ReadEvent;
@@ -20,16 +22,23 @@ namespace ZyzzyvagRPC.Subscriber.SubscriberImplementation
         public event EventHandler<UpdateEventArgs> UpdateEvent;
         public event EventHandler<DeleteEventArgs> DeleteEvent;
 
+
+        /// <inheritdoc/>
         public override void CreateActor()=> _actor = ClusterClientAccess.CreateActor(PersonaActor.MyProps(this, ReadEvent, ReadAllEvent, InsertEvent, UpdateEvent, DeleteEvent));
 
+        /// <inheritdoc/>
         public void Delete(int id) => ClusterClientAccess.Instance.Delete(id, _actor);
 
+        /// <inheritdoc/>
         public void Insert(Persona persona) => ClusterClientAccess.Instance.Insert(persona, _actor);
 
+        /// <inheritdoc/>
         public void Read(int id) => ClusterClientAccess.Instance.Read(id, _actor);
 
+        /// <inheritdoc/>
         public void ReadAll() => ClusterClientAccess.Instance.ReadAll(_actor);
 
+        /// <inheritdoc/>
         public void Update(Persona persona) => ClusterClientAccess.Instance.Update(persona, _actor); 
                                                                                                          
         private class PersonaActor : ReceiveActor

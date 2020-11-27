@@ -7,10 +7,13 @@ using Zyzzyva.Akka.Membri.Messages;
 
 namespace ZyzzyvagRPC.Subscriber.SubscriberImplementation
 {
+    /// <include file="../../Docs/Subscriber/SubscriberImplementation/MemberSubscriber.xml" path='docs/members[@name="membersubscriber"]/MemberSubscriber/*'/> 
     public class MemberSubscriber : AbstractSubscriber,IMemberSubscriber 
     {
         public event EventHandler<MemberEventArgs> MemberEvent;
+        /// <inheritdoc/>
         public override void CreateActor() => _actor = ClusterClientAccess.CreateActor(MemberActor.MyProps(this, MemberEvent));
+        /// <inheritdoc/>
         public void GetMembers()
         {
             ClusterClientAccess.Instance.GetMembers(_actor);

@@ -8,15 +8,19 @@ using ZyzzyvaRPC.ClusterClientAccess;
 
 namespace ZyzzyvagRPC.Subscriber.SubscriberImplementation
 {
+    /// <include file="../../Docs/Subscriber/SubscriberImplementation/FibonacciSubscriber.xml" path='docs/members[@name="fibonaccisubscriber"]/FibonacciSubscriber/*'/> 
     public class FibonacciSubscriber : AbstractSubscriber, IFibonacciSubscriber
     { 
         public event EventHandler<FibonacciEventArgs> FibonacciEvent;
         public event EventHandler<FactorialEventArgs> FactorialEvent;
 
+        /// <inheritdoc/>
         public override void CreateActor() => _actor = ClusterClientAccess.CreateActor(FibonacciActor.MyProps(this, FibonacciEvent,FactorialEvent));
 
+        /// <inheritdoc/>
         public void GetFactorial(int number) => ClusterClientAccess.Instance.GetFactorial(number, _actor);
-       
+
+        /// <inheritdoc/>
         public void GetFibonacci(int number)=> ClusterClientAccess.Instance.GetFibonacci(number, _actor);
 
         private class FibonacciActor : ReceiveActor

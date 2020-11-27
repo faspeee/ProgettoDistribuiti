@@ -1,3 +1,9 @@
 ﻿<docs>
-
+	<members name="membersubscriber">
+		<MemberSubscriber>
+			<summary>
+				class that implement all method that expose See <see cref="IMemberSubscriber"/>.
+			</summary> 
+		</MemberSubscriber> 
+	</members>
 </docs>

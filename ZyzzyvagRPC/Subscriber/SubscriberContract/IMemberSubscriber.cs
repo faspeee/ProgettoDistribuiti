@@ -7,9 +7,12 @@ using ZyzzyvagRPC.ZyzzyvaImplementation.EventArgument;
 
 namespace ZyzzyvagRPC.Subscriber.SubscriberContract
 {
+    /// <include file="../../Docs/Subscriber/SubscriberContract/IMemberSubscriber.xml" path='docs/members[@name="imembersubscriber"]/IPersonSubscriber/*'/>
     public interface IMemberSubscriber : ISubscriber
     { 
-        event EventHandler<MemberEventArgs> MemberEvent; 
+        event EventHandler<MemberEventArgs> MemberEvent;
+
+        /// <include file="../../Docs/Subscriber/SubscriberContract/IMemberSubscriber.xml" path='docs/members[@name="imembersubscriber"]/GetMembers/*'/>
         void GetMembers();  
     }
 

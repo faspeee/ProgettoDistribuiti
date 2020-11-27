@@ -1,3 +1,25 @@
 ﻿<docs>
-
+	<members name="ifibonaccisubscriber">
+		<IFibonacciSubscriber>
+			<summary>
+				Interface that show method that can call from FibonacciSubscriber to call Fibonacci and Factorial method.
+			</summary>
+			<remarks>
+				can GetFibonacci and GetFactorial.
+			</remarks>
+		</IFibonacciSubscriber>
+		<GetFibonacci>
+			<summary>
+				send int to server and calculus fibonacci.
+			</summary>
+			<param name="number">number that you want calculus fibonacci</param>.
+		</GetFibonacci>
+		<GetFactorial>
+			<summary>
+				send int to server and calculus factorial.
+			</summary> 
+			<param name="number">number that you want calculus factorial.</param> 
+		</GetFactorial>
+		 
+	</members>
 </docs>

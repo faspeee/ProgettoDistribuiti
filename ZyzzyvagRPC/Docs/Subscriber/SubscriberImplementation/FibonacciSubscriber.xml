@@ -1,3 +1,13 @@
 ﻿<docs>
-
+	<members name="fibonaccisubscriber">
+		<FibonacciSubscriber>
+			<summary>
+				class that implement all method that expose See <see cref="IFibonacciSubscriber"/>.
+			</summary>
+			<remarks>
+				can GetFibonacci and GetFactorial.
+			</remarks>
+		</FibonacciSubscriber>
+		 
+	</members>
 </docs>

@@ -1,3 +1,38 @@
 ﻿<docs>
+	<members name="ipersonasubscriber">
+		<IPersonSubscriber>
+			<summary>
+				Interface that show method that can call from PersonaSubscriber.
+			</summary>
+			<remarks>
+				can Read, ReadAll, Insert, Update, Delete.
+			</remarks>
+		</IPersonSubscriber>
+		<Read>
+			<summary>
+				send id of a person and read all information fort this person.
+			</summary>
+		</Read>
+		<ReadAll>
+			<summary>
+				call server asking the all people in the registry.
+			</summary>
+		</ReadAll>
+		<Insert>
+			<summary>
+				call server actor to insert a people registry into db.
+			</summary>
+		</Insert>
+		<Update>
+			<summary>
+				call server to update a registry in db.
+			</summary>
 
+		</Update>
+		<Delete>
+			<summary>
+				call db to delete registry in db.
+			</summary>
+		</Delete>
+	</members>
 </docs>
