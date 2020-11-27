@@ -12,6 +12,7 @@
 			<summary>
 				create an actor to receive responses.
 				See <see cref="ClusterClientAccess.CreateActor"/>
+				
 			</summary>
 			<example>
 				<code>
