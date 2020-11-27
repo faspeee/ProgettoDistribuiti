@@ -13,7 +13,7 @@ using ZyzzyvaRPC.ClusterClientAccess;
 namespace ZyzzyvagRPC.Subscriber.SubscriberImplementation
 {
 
-    /// <inheritdoc/>
+    /// <include file="../../Docs/Subscriber/SubscriberImplementation/PersonaSubscriber.xml" path='docs/members[@name="personasubscriber"]/PersonaSubscriber/*'/> 
     public class PersonaSubscriber : AbstractSubscriber, IPersonSubscriber
     {
         public event EventHandler<ReadEventArgs> ReadEvent;
